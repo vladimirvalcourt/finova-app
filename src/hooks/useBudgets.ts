@@ -26,53 +26,11 @@ export interface BudgetWithDetails extends Budget {
 
 // Fetcher function for SWR
 const fetchBudgets = async (): Promise<BudgetWithDetails[]> => {
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-        throw new Error('Not authenticated')
+    const res = await fetch('/api/data/budgets')
+    if (!res.ok) {
+        throw new Error('Failed to fetch budgets')
     }
-
-    const { data, error } = await supabase
-        .from('budgets')
-        .select(`
-      *,
-      category:categories(name, icon, color)
-    `)
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false })
-
-    if (error) throw error
-
-    // Calculate spent amount for each budget
-    const budgetsWithSpent = await Promise.all(
-        (data || []).map(async (budget: any) => {
-            const { data: transactions } = await supabase
-                .from('transactions')
-                .select('amount')
-                .eq('user_id', user.id)
-                .eq('category_id', budget.category_id)
-                .eq('type', 'expense')
-                .gte('date', budget.start_date)
-                .lte('date', budget.end_date || new Date().toISOString())
-
-            const spent = (transactions as any[])?.reduce(
-                (sum, t) => sum + Math.abs(Number(t.amount)),
-                0
-            ) || 0
-
-            const remaining = Number(budget.amount) - spent
-            const percentage = (spent / Number(budget.amount)) * 100
-
-            return {
-                ...budget,
-                spent,
-                remaining,
-                percentage,
-            }
-        })
-    )
-
-    return budgetsWithSpent
+    return res.json()
 }
 
 // Hook to get all budgets
@@ -137,3 +95,78 @@ export function useBudgetStatus() {
         isLoading,
     }
 }
+
+// Mutation functions for CRUD operations
+export function useBudgetMutations() {
+    const { mutate } = useBudgets()
+
+    const createBudget = async (budget: {
+        category_id: string
+        amount: number
+        period: 'weekly' | 'monthly' | 'yearly'
+        start_date: string
+        end_date?: string | null
+    }) => {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) throw new Error('Not authenticated')
+
+        const { data, error } = await supabase
+            .from('budgets')
+            // @ts-ignore - Types will resolve when Supabase is connected
+            .insert({
+                ...budget,
+                user_id: user.id,
+            })
+            .select(`
+                *,
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw error
+
+        await mutate()
+        return data
+    }
+
+    const updateBudget = async (id: string, updates: {
+        amount?: number
+        period?: 'weekly' | 'monthly' | 'yearly'
+        start_date?: string
+        end_date?: string | null
+    }) => {
+        const { data, error } = await supabase
+            .from('budgets')
+            // @ts-ignore - Types will resolve when Supabase is connected
+            .update(updates)
+            .eq('id', id)
+            .select(`
+                *,
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw error
+
+        await mutate()
+        return data
+    }
+
+    const deleteBudget = async (id: string) => {
+        const { error } = await supabase
+            .from('budgets')
+            .delete()
+            .eq('id', id)
+
+        if (error) throw error
+
+        await mutate()
+    }
+
+    return {
+        createBudget,
+        updateBudget,
+        deleteBudget,
+    }
+}
+

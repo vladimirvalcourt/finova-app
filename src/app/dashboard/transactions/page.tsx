@@ -5,18 +5,42 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardBody } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
-import { useTransactions } from '@/hooks/useTransactions'
+import { useTransactions, Transaction } from '@/hooks/useTransactions'
 import { useAccounts } from '@/hooks/useAccounts'
+import { TransactionModal } from '@/components/forms/modals/TransactionModal'
 import { Loader2 } from 'lucide-react'
 import { format } from 'date-fns'
 import styles from '../page.module.css'
 
 export default function TransactionsPage() {
-    const { transactions, isLoading, isError } = useTransactions()
+    const { transactions, isLoading, isError, mutate } = useTransactions()
     const { accounts } = useAccounts()
     const [searchQuery, setSearchQuery] = useState('')
     const [categoryFilter, setCategoryFilter] = useState('all')
     const [accountFilter, setAccountFilter] = useState('all')
+
+    // Modal state
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null)
+
+    const openCreateModal = () => {
+        setSelectedTransaction(null)
+        setIsModalOpen(true)
+    }
+
+    const openEditModal = (transaction: Transaction) => {
+        setSelectedTransaction(transaction)
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setSelectedTransaction(null)
+    }
+
+    const handleModalSuccess = () => {
+        mutate() // Refresh data
+    }
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(Math.abs(amount))
@@ -66,7 +90,7 @@ export default function TransactionsPage() {
                             <h1 className={styles.pageTitle}>Transactions</h1>
                             <p className={styles.pageSubtitle}>Track and manage all your transactions</p>
                         </div>
-                        <Button variant="primary">➕ Add Transaction</Button>
+                        <Button variant="primary" onClick={openCreateModal}>➕ Add Transaction</Button>
                     </div>
                 </div>
 
@@ -143,6 +167,7 @@ export default function TransactionsPage() {
                                 {filteredTransactions.map((transaction) => (
                                     <div
                                         key={transaction.id}
+                                        onClick={() => openEditModal(transaction)}
                                         style={{
                                             display: 'flex',
                                             alignItems: 'center',
@@ -189,6 +214,14 @@ export default function TransactionsPage() {
                     </CardBody>
                 </Card>
             </div>
+
+            {/* Transaction Modal */}
+            <TransactionModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                transaction={selectedTransaction}
+                onSuccess={handleModalSuccess}
+            />
         </div>
     )
 }

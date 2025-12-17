@@ -3,9 +3,10 @@
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 import { motion } from 'framer-motion'
-import { ArrowRight, Globe, MessageCircle, Home, Target, PieChart, Bell, Shield } from 'lucide-react'
+import { ArrowRight, Globe, MessageCircle, Home, Target, PieChart, Bell, Shield, ChevronDown } from 'lucide-react'
 import { Testimonials } from '@/components/marketing'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import Image from 'next/image'
 import styles from './landing.module.css'
 
 export default function LandingPage() {
@@ -44,6 +45,11 @@ export default function LandingPage() {
     },
   ]
 
+  const scrollToContent = () => {
+    const featuresSection = document.querySelector(`.${styles.features}`)
+    featuresSection?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <div className={styles.page}>
       {/* Navigation */}
@@ -67,46 +73,62 @@ export default function LandingPage() {
       <section className={styles.hero}>
         <motion.div
           className={styles.heroContent}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
         >
           <div className={styles.badge}>
-            <Globe size={14} />
+            <span style={{ fontSize: '1.2rem' }}>✨</span>
             <span>{t('badge')}</span>
           </div>
+
           <h1 className={styles.heroTitle}>
             {t('headline')}
-            <span className={styles.heroGradient}> {t('headlineGradient')}</span>
+            {/* <span className={styles.heroGradient}>{t('headlineGradient')}</span> Removed gradient for cleaner look */}
           </h1>
+
           <p className={styles.heroSubtitle}>
             {t('subtitle')}
           </p>
+
           <div className={styles.heroCta}>
             <Link href="/signup" className={styles.ctaPrimary}>
               {t('cta')}
-              <ArrowRight size={18} />
             </Link>
             <Link href="/dashboard" className={styles.ctaSecondary}>
-              {t('ctaDemo')}
+              {t('ctaDemo')} <ArrowRight size={18} />
             </Link>
           </div>
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>18</span>
-              <span className={styles.statLabel}>{t('stats.languages')}</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>$0</span>
-              <span className={styles.statLabel}>{t('stats.free')}</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.stat}>
-              <span className={styles.statNumber}>🤝</span>
-              <span className={styles.statLabel}>{t('stats.family')}</span>
-            </div>
-          </div>
+
+          {/* Stats removed from hero for cleaner look, potentially move below */}
+        </motion.div>
+
+        {/* Hero Illustration - Right Side (Desktop) */}
+        <motion.div
+          className={styles.heroImageWrapper}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
+        >
+          <Image
+            src="/hero-illustration.png"
+            alt="Finova App Interface"
+            width={800}
+            height={800}
+            className={styles.heroIllustration}
+            priority
+          />
+        </motion.div>
+
+        {/* Scroll Indicator */}
+        <motion.div
+          className={styles.scrollIndicator}
+          onClick={scrollToContent}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+        >
+          <ChevronDown size={24} />
         </motion.div>
       </section>
 
@@ -123,13 +145,13 @@ export default function LandingPage() {
             <motion.div
               key={index}
               className={styles.featureCard}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              viewport={{ once: true, margin: '-100px' }}
             >
               <div className={styles.featureIcon}>
-                <feature.icon size={24} />
+                <feature.icon size={28} />
               </div>
               <h3 className={styles.featureTitle}>{feature.title}</h3>
               <p className={styles.featureDescription}>{feature.description}</p>

@@ -31,25 +31,11 @@ export interface TransactionWithDetails extends Transaction {
 
 // Fetcher function for SWR
 const fetchTransactions = async (): Promise<TransactionWithDetails[]> => {
-    const { data: { user } } = await supabase.auth.getUser()
-
-    if (!user) {
-        throw new Error('Not authenticated')
+    const res = await fetch('/api/data/transactions')
+    if (!res.ok) {
+        throw new Error('Failed to fetch transactions')
     }
-
-    const { data, error } = await supabase
-        .from('transactions')
-        .select(`
-      *,
-      account:accounts(name, color),
-      category:categories(name, icon, color)
-    `)
-        .eq('user_id', user.id)
-        .order('date', { ascending: false })
-        .limit(100)
-
-    if (error) throw error
-    return data || []
+    return res.json()
 }
 
 // Hook to get all transactions
@@ -125,3 +111,70 @@ export function useMonthlyStats() {
         isLoading,
     }
 }
+
+// Mutation functions for CRUD operations
+export function useTransactionMutations() {
+    const { mutate } = useTransactions()
+
+    const createTransaction = async (transaction: Omit<Transaction, 'id' | 'created_at' | 'updated_at'>) => {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) throw new Error('Not authenticated')
+
+        const { data, error } = await supabase
+            .from('transactions')
+            // @ts-ignore - Types will resolve when Supabase is connected
+            .insert({
+                ...transaction,
+                user_id: user.id,
+            })
+            .select(`
+                *,
+                account:accounts(name, color),
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw error
+
+        // Revalidate the cache
+        await mutate()
+        return data
+    }
+
+    const updateTransaction = async (id: string, updates: Partial<Transaction>) => {
+        const { data, error } = await supabase
+            .from('transactions')
+            // @ts-ignore - Types will resolve when Supabase is connected
+            .update(updates)
+            .eq('id', id)
+            .select(`
+                *,
+                account:accounts(name, color),
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw error
+
+        await mutate()
+        return data
+    }
+
+    const deleteTransaction = async (id: string) => {
+        const { error } = await supabase
+            .from('transactions')
+            .delete()
+            .eq('id', id)
+
+        if (error) throw error
+
+        await mutate()
+    }
+
+    return {
+        createTransaction,
+        updateTransaction,
+        deleteTransaction,
+    }
+}
+

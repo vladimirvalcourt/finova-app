@@ -1,16 +1,39 @@
 'use client'
 
+import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Card, CardHeader, CardBody } from '@/components/ui/Card'
-import { useAccounts, useTotalBalance } from '@/hooks/useAccounts'
+import { Card } from '@/components/ui/Card'
+import { useAccounts, useTotalBalance, Account } from '@/hooks/useAccounts'
+import { AccountModal } from '@/components/forms/modals/AccountModal'
 import { Loader2 } from 'lucide-react'
-import { useModals } from '@/components/providers/ModalProvider'
 import styles from '../page.module.css'
 
 export default function AccountsPage() {
-    const { accounts, isLoading, isError } = useAccounts()
+    const { accounts, isLoading, isError, mutate } = useAccounts()
     const { totalBalance } = useTotalBalance()
-    const { openAccountModal } = useModals()
+
+    // Modal state
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedAccount, setSelectedAccount] = useState<Account | null>(null)
+
+    const openCreateModal = () => {
+        setSelectedAccount(null)
+        setIsModalOpen(true)
+    }
+
+    const openEditModal = (account: Account) => {
+        setSelectedAccount(account)
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setSelectedAccount(null)
+    }
+
+    const handleModalSuccess = () => {
+        mutate()
+    }
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
@@ -28,15 +51,15 @@ export default function AccountsPage() {
     const getAccountStyle = (type: string) => {
         switch (type?.toLowerCase()) {
             case 'checking':
-                return { icon: '🏦', color: '#6366F1' } // Indigo
+                return { icon: '🏦', color: '#6366F1' }
             case 'savings':
-                return { icon: '💰', color: '#10B981' } // Emerald
+                return { icon: '💰', color: '#10B981' }
             case 'credit':
-                return { icon: '💳', color: '#F43F5E' } // Rose
+                return { icon: '💳', color: '#F43F5E' }
             case 'investment':
-                return { icon: '📈', color: '#F59E0B' } // Amber
+                return { icon: '📈', color: '#F59E0B' }
             case 'cash':
-                return { icon: '💵', color: '#22C55E' } // Green
+                return { icon: '💵', color: '#22C55E' }
             default:
                 return { icon: '🏦', color: '#6366F1' }
         }
@@ -47,7 +70,7 @@ export default function AccountsPage() {
             {/* Page Header */}
             <header className={styles.header}>
                 <h1 className={styles.title}>Accounts</h1>
-                <Button variant="primary" onClick={openAccountModal}>
+                <Button variant="primary" onClick={openCreateModal}>
                     ➕ Add Account
                 </Button>
             </header>
@@ -68,7 +91,7 @@ export default function AccountsPage() {
                     <p style={{ marginBottom: '1.5rem' }}>
                         Add your first account to start tracking your finances.
                     </p>
-                    <Button variant="primary" onClick={openAccountModal}>➕ Add Your First Account</Button>
+                    <Button variant="primary" onClick={openCreateModal}>➕ Add Your First Account</Button>
                 </div>
             ) : (
                 <>
@@ -133,6 +156,7 @@ export default function AccountsPage() {
                                     style={{
                                         borderLeft: `4px solid ${style.color}`,
                                     }}
+                                    onClick={() => openEditModal(account)}
                                 >
                                     <div style={{ padding: '1.5rem' }}>
                                         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
@@ -153,9 +177,9 @@ export default function AccountsPage() {
                                                     <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#18181B', marginBottom: '0.25rem' }}>
                                                         {account.name}
                                                     </h3>
-                                                    <span style={{ 
-                                                        fontSize: '0.75rem', 
-                                                        color: '#71717A', 
+                                                    <span style={{
+                                                        fontSize: '0.75rem',
+                                                        color: '#71717A',
                                                         background: '#F4F4F5',
                                                         padding: '0.25rem 0.5rem',
                                                         borderRadius: '100px',
@@ -181,11 +205,8 @@ export default function AccountsPage() {
                                         </div>
 
                                         <div style={{ display: 'flex', gap: '0.75rem' }}>
-                                            <Button variant="secondary" size="small" fullWidth>
-                                                View Details
-                                            </Button>
-                                            <Button variant="ghost" size="small" fullWidth>
-                                                Edit
+                                            <Button variant="secondary" size="small" fullWidth onClick={(e) => { e.stopPropagation(); openEditModal(account); }}>
+                                                Edit Account
                                             </Button>
                                         </div>
                                     </div>
@@ -195,6 +216,14 @@ export default function AccountsPage() {
                     </div>
                 </>
             )}
+
+            {/* Account Modal */}
+            <AccountModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                account={selectedAccount}
+                onSuccess={handleModalSuccess}
+            />
         </div>
     )
 }

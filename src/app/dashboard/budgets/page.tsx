@@ -1,15 +1,40 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardBody } from '@/components/ui/Card'
-import { useBudgets, useBudgetStatus } from '@/hooks/useBudgets'
+import { useBudgets, useBudgetStatus, BudgetWithDetails } from '@/hooks/useBudgets'
+import { BudgetModal } from '@/components/forms/modals/BudgetModal'
 import { Loader2 } from 'lucide-react'
 import styles from '../page.module.css'
 
 export default function BudgetsPage() {
-    const { budgets, isLoading, isError } = useBudgets()
+    const { budgets, isLoading, isError, mutate } = useBudgets()
     const { totalBudget, totalSpent, overallPercentage, onTrack, overBudget } = useBudgetStatus()
+
+    // Modal state
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedBudget, setSelectedBudget] = useState<BudgetWithDetails | null>(null)
+
+    const openCreateModal = () => {
+        setSelectedBudget(null)
+        setIsModalOpen(true)
+    }
+
+    const openEditModal = (budget: BudgetWithDetails) => {
+        setSelectedBudget(budget)
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setSelectedBudget(null)
+    }
+
+    const handleModalSuccess = () => {
+        mutate()
+    }
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
@@ -56,7 +81,7 @@ export default function BudgetsPage() {
                             <h1 className={styles.pageTitle}>Budgets</h1>
                             <p className={styles.pageSubtitle}>Track your spending against budgets</p>
                         </div>
-                        <Button variant="primary">➕ Create Budget</Button>
+                        <Button variant="primary" onClick={openCreateModal}>➕ Create Budget</Button>
                     </div>
                 </div>
 
@@ -81,7 +106,7 @@ export default function BudgetsPage() {
                                 <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}>
                                     Create your first budget to start tracking your spending.
                                 </p>
-                                <Button variant="primary">➕ Create Your First Budget</Button>
+                                <Button variant="primary" onClick={openCreateModal}>➕ Create Your First Budget</Button>
                             </div>
                         </CardBody>
                     </Card>
@@ -137,11 +162,16 @@ export default function BudgetsPage() {
                                 const remaining = (budget.remaining || 0)
 
                                 return (
-                                    <Card key={budget.id} hoverable>
+                                    <Card
+                                        key={budget.id}
+                                        hoverable
+                                        onClick={() => openEditModal(budget)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <div style={{ marginBottom: 'var(--spacing-4)' }}>
                                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--spacing-3)' }}>
                                                 <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-text-primary)' }}>
-                                                    {budget.category?.name || 'Budget'}
+                                                    {budget.category?.icon} {budget.category?.name || 'Budget'}
                                                 </h3>
                                                 <div style={{
                                                     fontSize: 'var(--font-size-lg)',
@@ -192,15 +222,6 @@ export default function BudgetsPage() {
                                                 {formatCurrency(Math.abs(remaining))}
                                             </div>
                                         </div>
-
-                                        <div style={{ display: 'flex', gap: 'var(--spacing-2)', marginTop: 'var(--spacing-4)' }}>
-                                            <Button variant="secondary" size="small" fullWidth>
-                                                View Details
-                                            </Button>
-                                            <Button variant="ghost" size="small" fullWidth>
-                                                Edit
-                                            </Button>
-                                        </div>
                                     </Card>
                                 )
                             })}
@@ -208,6 +229,14 @@ export default function BudgetsPage() {
                     </>
                 )}
             </div>
+
+            {/* Budget Modal */}
+            <BudgetModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                budget={selectedBudget}
+                onSuccess={handleModalSuccess}
+            />
         </div>
     )
 }

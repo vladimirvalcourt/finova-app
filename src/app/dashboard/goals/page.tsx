@@ -2,12 +2,22 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Card, CardBody } from '@/components/ui/Card'
+import { Card } from '@/components/ui/Card'
 import { useGoals } from '@/hooks/useGoals'
-import { Loader2, Target, Pencil } from 'lucide-react'
-import { useModals } from '@/components/providers/ModalProvider'
-import { GoalFormModal } from '@/components/forms'
+import { GoalModal } from '@/components/forms/modals/GoalModal'
+import { Loader2, Pencil } from 'lucide-react'
 import styles from '../page.module.css'
+
+interface Goal {
+    id: string
+    name: string
+    target_amount: number
+    current_amount: number
+    deadline: string | null
+    icon: string
+    color: string
+    percentage: number
+}
 
 function getCelebration(percentage: number): string | null {
     if (percentage >= 100) return '🎉 Goal reached!'
@@ -18,11 +28,30 @@ function getCelebration(percentage: number): string | null {
 }
 
 export default function GoalsPage() {
-    const { goals, isLoading } = useGoals()
-    const { openGoalModal } = useModals()
-    // Local state for editing - separate from the global create modal
-    const [editingGoal, setEditingGoal] = useState<any>(null)
-    const [showEditModal, setShowEditModal] = useState(false)
+    const { goals, isLoading, mutate } = useGoals()
+
+    // Modal state
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null)
+
+    const openCreateModal = () => {
+        setSelectedGoal(null)
+        setIsModalOpen(true)
+    }
+
+    const openEditModal = (goal: Goal) => {
+        setSelectedGoal(goal)
+        setIsModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setSelectedGoal(null)
+    }
+
+    const handleModalSuccess = () => {
+        mutate()
+    }
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount)
@@ -31,25 +60,12 @@ export default function GoalsPage() {
     const totalSaved = goals.reduce((sum, g) => sum + g.current_amount, 0)
     const overallProgress = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0
 
-    const handleEdit = (goal: any) => {
-        setEditingGoal({
-            id: goal.id,
-            name: goal.name,
-            target_amount: goal.target_amount.toString(),
-            current_amount: goal.current_amount.toString(),
-            deadline: goal.deadline || '',
-            icon: goal.icon,
-            color: goal.color,
-        })
-        setShowEditModal(true)
-    }
-
     return (
         <div className={styles.pageContent}>
             {/* Page Header */}
             <header className={styles.header}>
                 <h1 className={styles.title}>Goals</h1>
-                <Button variant="primary" onClick={openGoalModal}>
+                <Button variant="primary" onClick={openCreateModal}>
                     ➕ New Goal
                 </Button>
             </header>
@@ -66,7 +82,7 @@ export default function GoalsPage() {
                     <p style={{ marginBottom: '1.5rem' }}>
                         Start by creating your first savings goal
                     </p>
-                    <Button variant="primary" onClick={openGoalModal}>➕ Create Goal</Button>
+                    <Button variant="primary" onClick={openCreateModal}>➕ Create Goal</Button>
                 </div>
             ) : (
                 <>
@@ -97,21 +113,22 @@ export default function GoalsPage() {
                         {goals.map(goal => {
                             const celebration = getCelebration(goal.percentage)
                             return (
-                                <Card 
+                                <Card
                                     key={goal.id}
                                     hoverable
                                     className={styles.tableCard}
-                                    style={{ borderTop: `4px solid ${goal.color}` }}
+                                    style={{ borderTop: `4px solid ${goal.color}`, cursor: 'pointer' }}
+                                    onClick={() => openEditModal(goal)}
                                 >
                                     <div style={{ padding: '1.5rem' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                                             <span style={{ fontSize: '1.5rem' }}>{goal.icon}</span>
-                                            <button 
-                                                onClick={() => handleEdit(goal)}
-                                                style={{ 
-                                                    padding: '0.5rem', 
-                                                    borderRadius: '8px', 
-                                                    border: 'none', 
+                                            <button
+                                                onClick={(e) => { e.stopPropagation(); openEditModal(goal); }}
+                                                style={{
+                                                    padding: '0.5rem',
+                                                    borderRadius: '8px',
+                                                    border: 'none',
                                                     background: 'transparent',
                                                     cursor: 'pointer',
                                                     color: '#71717A'
@@ -120,9 +137,9 @@ export default function GoalsPage() {
                                                 <Pencil size={16} />
                                             </button>
                                         </div>
-                                        
+
                                         <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#18181B', marginBottom: '1rem' }}>{goal.name}</h3>
-                                        
+
                                         <div style={{
                                             width: '100%',
                                             height: '8px',
@@ -150,10 +167,10 @@ export default function GoalsPage() {
                                         </div>
 
                                         {celebration && (
-                                            <div style={{ 
-                                                marginTop: '0.75rem', 
-                                                fontSize: '0.875rem', 
-                                                fontWeight: 500, 
+                                            <div style={{
+                                                marginTop: '0.75rem',
+                                                fontSize: '0.875rem',
+                                                fontWeight: 500,
                                                 color: '#059669',
                                                 display: 'flex',
                                                 alignItems: 'center',
@@ -162,7 +179,7 @@ export default function GoalsPage() {
                                                 {celebration}
                                             </div>
                                         )}
-                                        
+
                                         {goal.deadline && (
                                             <div style={{ marginTop: '0.75rem', fontSize: '0.75rem', color: '#71717A' }}>
                                                 Due: {new Date(goal.deadline).toLocaleDateString()}
@@ -176,11 +193,12 @@ export default function GoalsPage() {
                 </>
             )}
 
-            {/* Edit Modal - separate from global create modal */}
-            <GoalFormModal
-                isOpen={showEditModal}
-                onClose={() => { setShowEditModal(false); setEditingGoal(null) }}
-                goal={editingGoal}
+            {/* Goal Modal */}
+            <GoalModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                goal={selectedGoal}
+                onSuccess={handleModalSuccess}
             />
         </div>
     )
