@@ -1,0 +1,212 @@
+/* Shared UI Utilities */
+
+/* =========================
+   GLASSMORPHISM CARDS
+   ========================= */
+.glass-card {
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(63, 63, 70, 0.3);
+    border-radius: 16px;
+    padding: 1.25rem;
+}
+
+.glass-card-hover {
+    transition: all 0.2s;
+}
+
+.glass-card-hover:hover {
+    background: rgba(39, 39, 42, 0.6);
+    transform: translateY(-2px);
+}
+
+/* =========================
+   BUTTONS
+   ========================= */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #6366f1, #A855F7);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(39, 39, 42, 0.5);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 8px;
+    color: #A1A1AA;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background: rgba(63, 63, 70, 0.5);
+    color: #FAFAFA;
+}
+
+.btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #71717A;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    background: rgba(63, 63, 70, 0.3);
+    color: #FAFAFA;
+}
+
+/* =========================
+   FORM INPUTS
+   ========================= */
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(39, 39, 42, 0.5);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 8px;
+    color: #FAFAFA;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.input::placeholder {
+    color: #52525B;
+}
+
+.input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #A1A1AA;
+    margin-bottom: 0.5rem;
+}
+
+/* =========================
+   TEXT STYLES
+   ========================= */
+.text-muted {
+    color: #71717A;
+}
+
+.text-success {
+    color: #22C55E;
+}
+
+.text-error {
+    color: #EF4444;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #6366f1, #A855F7, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* =========================
+   LAYOUT HELPERS
+   ========================= */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.gap-sm {
+    gap: 0.5rem;
+}
+
+.gap-md {
+    gap: 1rem;
+}
+
+.gap-lg {
+    gap: 1.5rem;
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+.spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

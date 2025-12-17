@@ -1,0 +1,139 @@
+.container {
+    position: relative;
+    z-index: 50;
+}
+
+.trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.trigger:hover,
+.trigger.active {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.iconGlobe {
+    opacity: 0.7;
+}
+
+.currentLabel {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .currentLabel {
+        display: block;
+        max-width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.flag {
+    font-size: 1.1em;
+    margin-left: 0.25rem;
+}
+
+.iconChevron {
+    opacity: 0.5;
+    transition: transform 0.2s ease;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 260px;
+    background: rgba(15, 15, 20, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    padding: 0.5rem;
+}
+
+.scrollArea {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 2px;
+}
+
+/* Custom Scrollbar */
+.scrollArea::-webkit-scrollbar {
+    width: 4px;
+}
+
+.scrollArea::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.option {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+    transition: all 0.15s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.option:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--foreground);
+}
+
+.selected {
+    background: rgba(99, 102, 241, 0.1);
+    /* Indigo tint */
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.optionFlag {
+    font-size: 1.25em;
+    min-width: 1.5rem;
+    text-align: center;
+}
+
+.optionName {
+    flex: 1;
+}
+
+.check {
+    color: var(--primary);
+}

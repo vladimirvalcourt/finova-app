@@ -1,0 +1,124 @@
+{
+    "brand": {
+        "name": "FINOVA",
+        "tagline": "Zetwal Finansye Ou"
+    },
+    "nav": {
+        "dashboard": "Tablo",
+        "transactions": "Tranzaksyon",
+        "budgets": "Bidjè",
+        "accounts": "Kont",
+        "goals": "Objektif",
+        "login": "Konekte",
+        "getStarted": "Kòmanse"
+    },
+    "landing": {
+        "badge": "Fèt pou fanmi tankou pa ou",
+        "headline": "Lajan ou. Lang ou.",
+        "headlineGradient": "Fason ou.",
+        "subtitle": "Premye aplikasyon finans ki pale Kreyòl, Panyòl, Tagalog, ak 15 lòt lang. Paske ou pa ta dwe tradui kont labank ou nan tèt ou.",
+        "cta": "Eseye gratis — pa bezwen anglè",
+        "ctaDemo": "Gade li an aksyon",
+        "stats": {
+            "languages": "Lang",
+            "free": "Gratis pou toutan",
+            "family": "Pou fanmi ou"
+        },
+        "features": {
+            "title": "Fèt pou jan ou viv toutbon",
+            "subtitle": "Se pa yon lòt aplikasyon labank jeneral. Sa a konprann ou.",
+            "ai": {
+                "title": "\"Mwen voye $200 bay manman m\"",
+                "desc": "Jis ekri li. AI nou an konprann ou—nan nenpòt lang."
+            },
+            "home": {
+                "title": "Swiv lajan lakay ak isit",
+                "desc": "Wè sa ou voye bay fanmi aletranje ak sa ki rete isit. Yon sèl aplikasyon."
+            },
+            "goals": {
+                "title": "Objektif fanmi ou ka wè",
+                "desc": "Ekonomize pou vwayaj lakay. Pataje pwogrè ak moun ki enpòtan yo."
+            },
+            "spending": {
+                "title": "Wè ki kote lajan an ale",
+                "desc": "Bèl grafik. Pa gen sipriz. Pa gen matematik."
+            },
+            "bills": {
+                "title": "Pa janm rate yon bòdwo",
+                "desc": "Resevwa alèt anvan li rive. Pwoteje kredi w ap konstwi a."
+            },
+            "security": {
+                "title": "Done ou rete pou ou",
+                "desc": "Sekirite nivo bank. Nou pa vann enfòmasyon ou. Pwen."
+            }
+        },
+        "socialProof": {
+            "quote": "Maria pataje l ak manman l. Manman l pataje l ak zanmi l. Kounye a 47 fanmi nan legliz yo itilize Finova.",
+            "note": "Fè konfyans pa rekòmandasyon, pa pa piblisite."
+        },
+        "testimonials": {
+            "title": "Vrè fanmi. Vrè lang.",
+            "subtitle": "Gade sa moun yo ap di—nan pwòp mo yo."
+        },
+        "ctaSection": {
+            "title": "Montre fanmi ou gen yon pi bon fason.",
+            "subtitle": "Gratis pou toutan. Pa gen kat kredi. Pa gen pyèj.",
+            "button": "Kòmanse — Li Gratis",
+            "trust": "Fonksyone sou nenpòt telefòn • Disponib nan 18 lang • Sekirize"
+        },
+        "footer": {
+            "tagline": "Fèt pa imigran, pou imigran.",
+            "copyright": "© 2024 Finova. Tout dwa rezève."
+        }
+    },
+    "dashboard": {
+        "welcome": "Byenveni ankò!",
+        "subtitle": "Men rezime finansye ou",
+        "totalBalance": "Balans Total",
+        "monthlyIncome": "Revni Mansyèl",
+        "monthlyExpenses": "Depans Mansyèl",
+        "savingsRate": "To Ekonomi",
+        "recentTransactions": "Tranzaksyon Resan",
+        "quickActions": "Aksyon Rapid",
+        "budgetOverview": "Rezime Bidjè"
+    },
+    "transactions": {
+        "title": "Tranzaksyon",
+        "subtitle": "Swiv ak jere tout tranzaksyon ou yo",
+        "addTransaction": "Ajoute Tranzaksyon",
+        "searchPlaceholder": "Chèche tranzaksyon...",
+        "allCategories": "Tout Kategori",
+        "allAccounts": "Tout Kont",
+        "income": "Revni",
+        "expense": "Depans",
+        "transfer": "Transfè"
+    },
+    "budgets": {
+        "title": "Bidjè",
+        "subtitle": "Swiv depans ou yo kont bidjè ou",
+        "createBudget": "Kreye Bidjè",
+        "monthlyBudget": "Bidjè Mansyèl",
+        "spent": "Depanse",
+        "remaining": "Rete",
+        "overBudget": "Depase Bidjè"
+    },
+    "accounts": {
+        "title": "Kont",
+        "subtitle": "Jere kont finansye ou yo",
+        "addAccount": "Ajoute Kont",
+        "totalNetWorth": "Valè Nèt Total",
+        "currentBalance": "Balans Aktyèl",
+        "viewDetails": "Wè Detay",
+        "edit": "Modifye"
+    },
+    "common": {
+        "save": "Sove",
+        "cancel": "Anile",
+        "delete": "Efase",
+        "edit": "Modifye",
+        "close": "Fèmen",
+        "loading": "Ap chaje...",
+        "error": "Erè",
+        "success": "Siksè"
+    }
+}

@@ -1,0 +1,157 @@
+.container {
+    padding: 2rem;
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 16px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #FAFAFA;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: #71717A;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(39, 39, 42, 0.8);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 50%;
+    color: #A1A1AA;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.navBtn:hover {
+    background: rgba(63, 63, 70, 0.8);
+    color: #FAFAFA;
+}
+
+.testimonialWrapper {
+    flex: 1;
+    overflow: hidden;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+}
+
+.testimonial {
+    width: 100%;
+    padding: 1.5rem;
+    background: rgba(39, 39, 42, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(63, 63, 70, 0.3);
+}
+
+.quoteIcon {
+    color: #6366f1;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.quote {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #E4E4E7;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #A855F7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: white;
+}
+
+.authorInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.name {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #FAFAFA;
+}
+
+.location {
+    font-size: 0.75rem;
+    color: #71717A;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3F3F46;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.dot:hover {
+    background: #52525B;
+}
+
+.activeDot {
+    background: #6366f1;
+    width: 24px;
+    border-radius: 4px;
+}
+
+@media (max-width: 640px) {
+    .carousel {
+        flex-direction: column;
+    }
+
+    .navBtn {
+        display: none;
+    }
+
+    .testimonialWrapper {
+        min-height: 200px;
+    }
+}

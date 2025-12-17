@@ -1,0 +1,43 @@
+.loading {
+    text-align: center;
+    padding: var(--spacing-8);
+    color: var(--color-text-secondary);
+}
+
+.chartContainer {
+    margin-bottom: var(--spacing-4);
+}
+
+.summary {
+    display: flex;
+    justify-content: space-between;
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border);
+}
+
+.summaryItem {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.value {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+.positive {
+    color: var(--color-success-600);
+}
+
+.negative {
+    color: var(--color-danger-600);
+}

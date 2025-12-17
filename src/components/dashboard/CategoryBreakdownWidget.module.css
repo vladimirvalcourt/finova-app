@@ -1,0 +1,156 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FAFAFA;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    background: none;
+    border: none;
+    padding: 0;
+    color: #FAFAFA;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.backBtn:hover {
+    color: #A5B4FC;
+}
+
+.selectedIcon {
+    font-size: 1rem;
+}
+
+.loading {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71717A;
+    font-size: 0.875rem;
+}
+
+.empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71717A;
+    font-size: 0.875rem;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem;
+    background: rgba(39, 39, 42, 0.5);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    width: 100%;
+}
+
+.item:not(:disabled):hover {
+    background: rgba(63, 63, 70, 0.5);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.item:disabled {
+    cursor: default;
+}
+
+.itemLeft {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex: 1;
+}
+
+.itemIcon {
+    font-size: 1.25rem;
+    width: 28px;
+    text-align: center;
+}
+
+.itemInfo {
+    flex: 1;
+}
+
+.itemName {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #E4E4E7;
+    margin-bottom: 0.375rem;
+}
+
+.progressBar {
+    width: 100%;
+    height: 4px;
+    background: rgba(63, 63, 70, 0.5);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.itemRight {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.itemAmount {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #FAFAFA;
+}
+
+.itemPercent {
+    font-size: 0.6875rem;
+    color: #71717A;
+    min-width: 28px;
+    text-align: right;
+}
+
+.chevron {
+    color: #52525B;
+    transition: color 0.2s;
+}
+
+.item:hover .chevron {
+    color: #A5B4FC;
+}

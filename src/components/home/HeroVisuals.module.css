@@ -1,0 +1,141 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+}
+
+.mainCardWrapper {
+    width: 80%;
+    max-width: 600px;
+    transform-style: preserve-3d;
+    transform: rotateX(10deg);
+}
+
+.mainCard {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: rgba(20, 20, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.cardHeader {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.lineLong {
+    flex: 1;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.graphArea {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.graphSvg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Floating Pills */
+.glassPill {
+    background: rgba(20, 20, 30, 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4);
+}
+
+.floatCardLeft {
+    position: absolute;
+    left: 0%;
+    top: 30%;
+    z-index: 20;
+}
+
+.floatCardRight {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    z-index: 20;
+}
+
+.floatCardBottom {
+    position: absolute;
+    right: 15%;
+    bottom: 0%;
+    z-index: 20;
+}
+
+.iconBoxSuccess {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-success);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.iconBoxPrimary {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-primary);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.iconBoxWarning {
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-warning);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.label {
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    margin-bottom: 2px;
+}
+
+.value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--foreground);
+}

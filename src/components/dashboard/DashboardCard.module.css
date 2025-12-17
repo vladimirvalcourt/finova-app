@@ -1,0 +1,25 @@
+.card {
+    /* Nano Banana Pro: Deep Zinc-950 background for maximum contrast */
+    background-color: #09090B;
+    /* Nano Banana Pro: Precision 1px border */
+    border: 1px solid #27272A;
+    /* Zinc-800 */
+    border-radius: 0.75rem;
+    /* Sligthly tighter radius (12px) */
+    padding: 1.25rem;
+    /* Reduced padding for higher density */
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+/* Nano Banana Pro: No shadow lifts, just border highlights for professional feel */
+.hoverEffect:hover {
+    border-color: #3F3F46;
+    /* Zinc-700 */
+}
+
+/* Variant: Compact mode for dense data */
+.card.compact {
+    padding: 1rem;
+}

@@ -1,0 +1,98 @@
+.section {
+    padding: 8rem 0;
+    /* Huge vertical spacing like Origin */
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+        gap: 6rem;
+    }
+
+    .container.reverse .content {
+        order: 2;
+    }
+
+    .container.reverse .visualWrapper {
+        order: 1;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.label {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--emerald-400);
+    /* Origin green accent */
+    font-weight: 600;
+}
+
+.title {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    line-height: 1.1;
+    color: var(--foreground);
+    font-weight: 500;
+}
+
+.description {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--muted-foreground);
+    max-width: 480px;
+}
+
+.cta {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--foreground);
+    text-decoration: none;
+    border-bottom: 1px solid var(--muted-foreground);
+    padding-bottom: 0.2rem;
+    transition: all 0.2s ease;
+}
+
+.cta:hover {
+    color: var(--emerald-400);
+    border-color: var(--emerald-400);
+}
+
+.visualWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.visualInner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    /* Standard aspect ratio */
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    /* Optional: Add inner shadow or glow */
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) inset;
+}

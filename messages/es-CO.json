@@ -1,0 +1,124 @@
+{
+  "brand": {
+    "name": "FINOVA",
+    "tagline": "Tu Estrella Financiera"
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "transactions": "Transacciones",
+    "budgets": "Presupuestos",
+    "accounts": "Cuentas",
+    "goals": "Metas",
+    "login": "Iniciar sesión",
+    "getStarted": "Comenzar"
+  },
+  "landing": {
+    "badge": "Hecha para familias como la tuya",
+    "headline": "Tu plata. Tu idioma.",
+    "headlineGradient": "A tu manera.",
+    "subtitle": "La primera app de finanzas que habla español, tagalo, criollo y 15 idiomas más. Porque no deberías traducir tu cuenta de banco en tu cabeza.",
+    "cta": "Pruébala gratis — no necesitas inglés",
+    "ctaDemo": "Mírala en acción",
+    "stats": {
+      "languages": "Idiomas",
+      "free": "Gratis siempre",
+      "family": "Para tu familia"
+    },
+    "features": {
+      "title": "Hecha para cómo vives de verdad",
+      "subtitle": "No es otra app de banco genérica. Esta sí te entiende.",
+      "ai": {
+        "title": "\"Le mandé $200 a mi mamá\"",
+        "desc": "Solo escríbelo. Nuestra IA te entiende—en cualquier idioma."
+      },
+      "home": {
+        "title": "Rastrea plata allá y acá",
+        "desc": "Mira lo que mandaste a la familia y lo que te queda acá. Una sola app."
+      },
+      "goals": {
+        "title": "Metas que tu familia puede ver",
+        "desc": "Ahorra para el viaje a casa. Comparte el progreso con los que importan."
+      },
+      "spending": {
+        "title": "Mira a dónde se va el sueldo",
+        "desc": "Gráficos bonitos. Sin sorpresas. Sin matemáticas."
+      },
+      "bills": {
+        "title": "Nunca te saltes un pago",
+        "desc": "Recibe alertas antes de que venza. Protege el crédito que estás construyendo."
+      },
+      "security": {
+        "title": "Tus datos son tuyos",
+        "desc": "Seguridad de banco. No vendemos tu información. Punto."
+      }
+    },
+    "socialProof": {
+      "quote": "María se la compartió a su mamá. Su mamá se la compartió a su comadre. Ahora 47 familias de su iglesia usan Finova.",
+      "note": "De confianza por recomendación, no por anuncios."
+    },
+    "testimonials": {
+      "title": "Familias reales. Idiomas reales.",
+      "subtitle": "Mira lo que dice la gente—en sus propias palabras."
+    },
+    "ctaSection": {
+      "title": "Muéstrale a tu familia que hay una mejor manera.",
+      "subtitle": "Gratis siempre. Sin tarjeta de crédito. Sin trucos.",
+      "button": "Empezar — Es Gratis",
+      "trust": "Funciona en cualquier teléfono • Disponible en 18 idiomas • Seguro"
+    },
+    "footer": {
+      "tagline": "Hecha por inmigrantes, para inmigrantes.",
+      "copyright": "© 2024 Finova. Todos los derechos reservados."
+    }
+  },
+  "dashboard": {
+    "welcome": "¡Bienvenido de nuevo!",
+    "subtitle": "Aquí está tu resumen financiero",
+    "totalBalance": "Saldo Total",
+    "monthlyIncome": "Ingresos Mensuales",
+    "monthlyExpenses": "Gastos Mensuales",
+    "savingsRate": "Tasa de Ahorro",
+    "recentTransactions": "Transacciones Recientes",
+    "quickActions": "Acciones Rápidas",
+    "budgetOverview": "Resumen de Presupuesto"
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "subtitle": "Rastrea y administra todas tus transacciones",
+    "addTransaction": "Agregar Transacción",
+    "searchPlaceholder": "Buscar transacciones...",
+    "allCategories": "Todas las Categorías",
+    "allAccounts": "Todas las Cuentas",
+    "income": "Ingreso",
+    "expense": "Gasto",
+    "transfer": "Transferencia"
+  },
+  "budgets": {
+    "title": "Presupuestos",
+    "subtitle": "Controla tus gastos contra tu presupuesto",
+    "createBudget": "Crear Presupuesto",
+    "monthlyBudget": "Presupuesto Mensual",
+    "spent": "Gastado",
+    "remaining": "Restante",
+    "overBudget": "Sobre Presupuesto"
+  },
+  "accounts": {
+    "title": "Cuentas",
+    "subtitle": "Administra tus cuentas financieras",
+    "addAccount": "Agregar Cuenta",
+    "totalNetWorth": "Patrimonio Total",
+    "currentBalance": "Saldo Actual",
+    "viewDetails": "Ver Detalles",
+    "edit": "Editar"
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  }
+}

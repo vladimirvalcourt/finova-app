@@ -1,0 +1,34 @@
+.glassIcon {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 4px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.iconInner {
+    position: relative;
+    z-index: 2;
+    color: hsl(var(--accent-signal));
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+}
+
+.glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    z-index: 1;
+}
+
+.glassIcon:hover .iconInner {
+    transform: scale(1.1);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

@@ -1,0 +1,78 @@
+.root {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    overflow: hidden;
+}
+
+.auroraContainer {
+    position: absolute;
+    inset: -50% -50% -50% -50%;
+    /* Extend ensuring coverage */
+    z-index: 0;
+    opacity: 0.5;
+    pointer-events: none;
+    filter: blur(80px);
+    /* Heavy blur for soft effect */
+}
+
+/* 
+ * We use a pseudo-element or nested div to animate the gradient positions.
+ * A conic or radial gradient mix works best for "aurora" effects.
+ */
+.aurora {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(ellipse at 100% 0%, #101530 20%, transparent 70%),
+        radial-gradient(ellipse at 0% 100%, #1a1033 20%, transparent 70%),
+        radial-gradient(ellipse at 50% 50%, #0c0f1d 0%, transparent 100%);
+    background-size: 200% 200%;
+    animation: auroraMove 20s ease-in-out infinite alternate;
+    /* Adding a second layer of moving color spots */
+}
+
+.aurora::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.05) 0%, transparent 40%);
+    background-size: 150% 150%;
+    animation: auroraMove 30s linear infinite reverse;
+    mix-blend-mode: screen;
+}
+
+@keyframes auroraMove {
+    0% {
+        background-position: 0% 0%;
+        transform: scale(1);
+    }
+
+    50% {
+        background-position: 100% 50%;
+        transform: scale(1.1);
+    }
+
+    100% {
+        background-position: 50% 100%;
+        transform: scale(1);
+    }
+}
+
+.radialOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(circle at center, transparent 0%, var(--background) 90%);
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+}

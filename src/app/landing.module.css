@@ -1,0 +1,456 @@
+.page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #09090b 0%, #18181b 100%);
+}
+
+/* Navigation */
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1rem 2rem;
+    background: rgba(9, 9, 11, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(63, 63, 70, 0.3);
+}
+
+.navContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logoIcon {
+    font-size: 1.5rem;
+}
+
+.logoText {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FAFAFA;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.navLink {
+    padding: 0.5rem 1rem;
+    color: #A1A1AA;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.navLink:hover {
+    color: #FAFAFA;
+}
+
+.navLinkPrimary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: linear-gradient(135deg, #6366f1, #A855F7);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.navLinkPrimary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 4rem;
+    text-align: center;
+}
+
+.heroContent {
+    max-width: 800px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 100px;
+    color: #A5B4FC;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.heroTitle {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #FAFAFA;
+    margin-bottom: 1.5rem;
+}
+
+.heroGradient {
+    background: linear-gradient(135deg, #6366f1, #A855F7, #EC4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    color: #A1A1AA;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.heroCta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.ctaPrimary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #6366f1, #A855F7);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.ctaPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+.ctaSecondary {
+    padding: 1rem 2rem;
+    background: rgba(39, 39, 42, 0.8);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    color: #FAFAFA;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.ctaSecondary:hover {
+    background: rgba(63, 63, 70, 0.8);
+}
+
+.heroStats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statNumber {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #FAFAFA;
+}
+
+.statLabel {
+    font-size: 0.75rem;
+    color: #71717A;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statDivider {
+    width: 1px;
+    height: 40px;
+    background: rgba(63, 63, 70, 0.5);
+}
+
+/* Features Section */
+.features {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.featuresHeader {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.sectionTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #FAFAFA;
+    margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+    font-size: 1.125rem;
+    color: #71717A;
+}
+
+.featuresGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.featureCard {
+    padding: 2rem;
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(63, 63, 70, 0.3);
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.featureCard:hover {
+    transform: translateY(-4px);
+    border-color: rgba(99, 102, 241, 0.5);
+    box-shadow: 0 8px 40px rgba(99, 102, 241, 0.1);
+}
+
+.featureIcon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+    border-radius: 12px;
+    color: #A5B4FC;
+    margin-bottom: 1rem;
+}
+
+.featureTitle {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #FAFAFA;
+    margin-bottom: 0.5rem;
+}
+
+.featureDescription {
+    font-size: 0.9375rem;
+    color: #A1A1AA;
+    line-height: 1.6;
+}
+
+/* Social Proof Section */
+.socialProof {
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(168, 85, 247, 0.05));
+}
+
+.socialProofContent {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.socialProofQuote {
+    position: relative;
+    padding: 2rem;
+}
+
+.quoteIcon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    color: #6366f1;
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.quoteText {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #FAFAFA;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.socialProofNote {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    color: #71717A;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 6rem 2rem;
+    background: rgba(9, 9, 11, 0.5);
+}
+
+.testimonialsHeader {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.testimonialsWrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* CTA Section */
+.cta {
+    padding: 6rem 2rem;
+}
+
+.ctaContent {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 4rem;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 24px;
+}
+
+.ctaTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #FAFAFA;
+    margin-bottom: 1rem;
+}
+
+.ctaSubtitle {
+    font-size: 1rem;
+    color: #A1A1AA;
+    margin-bottom: 2rem;
+}
+
+.ctaButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, #6366f1, #A855F7);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+.ctaTrust {
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: #71717A;
+}
+
+/* Footer */
+.footer {
+    padding: 2rem;
+    border-top: 1px solid rgba(63, 63, 70, 0.3);
+}
+
+.footerContent {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: center;
+}
+
+.footerLogo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #FAFAFA;
+}
+
+.footerText {
+    font-size: 0.9375rem;
+    color: #A1A1AA;
+}
+
+.footerCopyright {
+    font-size: 0.75rem;
+    color: #52525B;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
+        padding: 1rem;
+    }
+
+    .hero {
+        padding: 6rem 1rem 3rem;
+    }
+
+    .heroCta {
+        flex-direction: column;
+    }
+
+    .heroStats {
+        flex-wrap: wrap;
+    }
+
+    .features {
+        padding: 4rem 1rem;
+    }
+
+    .featuresGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .ctaContent {
+        padding: 2rem;
+    }
+
+    .footerContent {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+}

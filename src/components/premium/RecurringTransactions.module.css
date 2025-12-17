@@ -1,0 +1,108 @@
+.loading,
+.empty {
+    text-align: center;
+    padding: var(--spacing-6);
+    color: var(--color-text-secondary);
+}
+
+.emptySub {
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-2);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-3);
+}
+
+.item {
+    padding: var(--spacing-4);
+    background: var(--color-surface-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition: transform var(--transition-fast);
+}
+
+.item:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary-200);
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-2);
+}
+
+.merchantInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.merchant {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+}
+
+.frequency {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-transform: capitalize;
+}
+
+.amountInfo {
+    text-align: right;
+}
+
+.amount {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    display: block;
+}
+
+.manageBtn {
+    font-size: var(--font-size-xs);
+    color: var(--color-primary-600);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+}
+
+.details {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-2);
+    padding-top: var(--spacing-2);
+    border-top: 1px dashed var(--color-border);
+}
+
+.annualCost {
+    font-weight: var(--font-weight-medium);
+}
+
+.actions {
+    margin-top: var(--spacing-4);
+    text-align: center;
+}
+
+.scanBtn {
+    width: 100%;
+    padding: var(--spacing-3);
+    background: var(--color-primary-50);
+    color: var(--color-primary-700);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.scanBtn:hover {
+    background: var(--color-primary-100);
+}
