@@ -56,7 +56,14 @@ export default function LandingPage() {
       <nav className={styles.nav}>
         <div className={styles.navContent}>
           <div className={styles.logo}>
-            <span className={styles.logoIcon}>💎</span>
+            <Image
+              src="/icon-192x192.png"
+              alt="Finova Logo"
+              width={32}
+              height={32}
+              className={styles.logoIcon}
+              priority
+            />
             <span className={styles.logoText}>Finova</span>
           </div>
           <div className={styles.navLinks}>
