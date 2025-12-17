@@ -6,6 +6,10 @@ import { useRecentTransactions, useMonthlyStats } from '@/hooks/useTransactions'
 import { useTotalBalance, useAccounts } from '@/hooks/useAccounts'
 import { useInvestments } from '@/hooks/useInvestments'
 import { useSession } from 'next-auth/react'
+import { motion } from 'framer-motion'
+import { PremiumCard } from '@/components/dashboard/PremiumCard'
+import { CashFlowChart } from '@/components/dashboard/CashFlowChart'
+import { CountUpCurrency } from '@/components/ui/CountUp'
 import styles from './page.module.css'
 
 export default function DashboardPage() {
@@ -32,10 +36,38 @@ export default function DashboardPage() {
         }
     }
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    }
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+    }
+
+    // Prepare chart data from monthly stats if available
+    const chartData = [
+        { name: 'Week 1', income: Number(income) * 0.25, expense: Number(expenses) * 0.2 },
+        { name: 'Week 2', income: Number(income) * 0.25, expense: Number(expenses) * 0.3 },
+        { name: 'Week 3', income: Number(income) * 0.25, expense: Number(expenses) * 0.25 },
+        { name: 'Week 4', income: Number(income) * 0.25, expense: Number(expenses) * 0.25 },
+    ]
+
     return (
-        <div className={styles.dashboardContainer}>
+        <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className={styles.dashboardContainer}
+        >
             {/* Top Header */}
-            <header className={styles.topHeader}>
+            <motion.header variants={itemVariants} className={styles.topHeader}>
                 <div className={styles.headerLeft}>
                     <div>
                         <h1 className={styles.greeting}>{greeting}, {userName}</h1>
@@ -57,12 +89,12 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 </div>
-            </header>
+            </motion.header>
 
             {/* Scrollable Content */}
             <div className={styles.scrollContent}>
                 {/* Hero Stats Section */}
-                <div className={styles.heroSection}>
+                <motion.div variants={itemVariants} className={styles.heroSection}>
                     <div className={styles.heroLeft}>
                         <div className={styles.balanceLabel}>
                             <span>Total Balance</span>
@@ -70,8 +102,13 @@ export default function DashboardPage() {
                                 <Eye size={16} />
                             </button>
                         </div>
+
+
+
                         <div className={styles.balanceRow}>
-                            <h2 className={styles.balanceAmount}>{formatCurrency(totalBalance)}</h2>
+                            <h2 className={styles.balanceAmount}>
+                                <CountUpCurrency amount={totalBalance} />
+                            </h2>
                             <div className={styles.trendBadge}>
                                 <TrendingUp size={14} />
                                 <span>+2.4%</span>
@@ -88,61 +125,30 @@ export default function DashboardPage() {
                             Send
                         </button>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Main Grid */}
                 <div className={styles.mainGrid}>
                     {/* Left Column */}
                     <div className={styles.leftColumn}>
                         {/* My Cards Section */}
-                        <section className={styles.section}>
+                        <motion.section variants={itemVariants} className={styles.section}>
                             <div className={styles.sectionHeader}>
                                 <h3>My Cards</h3>
                                 <button className={styles.linkBtn}>Manage Cards</button>
                             </div>
                             <div className={styles.cardsGrid}>
                                 {accounts.slice(0, 2).map((account, i) => (
-                                    <div key={account.id} className={i === 0 ? styles.cardPrimary : styles.cardSecondary}>
-                                        <div className={styles.cardTop}>
-                                            <div>
-                                                <span className={styles.cardLabel}>Current Balance</span>
-                                                <span className={styles.cardBalance}>{formatCurrency(Number(account.balance))}</span>
-                                            </div>
-                                            <div className={styles.cardLogo}>
-                                                {i === 0 ? 'VISA' : '••'}
-                                            </div>
-                                        </div>
-                                        <div className={styles.cardBottom}>
-                                            <div className={styles.cardNumber}>
-                                                <span>••••</span>
-                                                <span>••••</span>
-                                                <span>••••</span>
-                                                <span>{account.id.slice(-4)}</span>
-                                            </div>
-                                            <div className={styles.cardInfo}>
-                                                <div>
-                                                    <span className={styles.cardInfoLabel}>Card Holder</span>
-                                                    <span className={styles.cardInfoValue}>{userName}</span>
-                                                </div>
-                                                <div>
-                                                    <span className={styles.cardInfoLabel}>Expires</span>
-                                                    <span className={styles.cardInfoValue}>12/26</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <PremiumCard key={account.id} account={account} index={i} />
                                 ))}
                                 {accounts.length === 0 && (
-                                    <div className={styles.emptyCard}>
-                                        <Plus size={24} />
-                                        <span>Add your first card</span>
-                                    </div>
+                                    <PremiumCard index={0} isEmpty />
                                 )}
                             </div>
-                        </section>
+                        </motion.section>
 
                         {/* Cash Flow Section */}
-                        <section className={styles.section}>
+                        <motion.section variants={itemVariants} className={styles.section}>
                             <div className={styles.sectionHeader}>
                                 <h3>Cash Flow</h3>
                                 <select className={styles.periodSelect}>
@@ -162,22 +168,14 @@ export default function DashboardPage() {
                                         <span>Expenses</span>
                                     </div>
                                 </div>
-                                <div className={styles.chartBars}>
-                                    {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => (
-                                        <div key={day} className={styles.barGroup}>
-                                            <div className={styles.bars}>
-                                                <div className={styles.barExpense} style={{ height: `${30 + Math.random() * 40}%` }}></div>
-                                                <div className={styles.barIncome} style={{ height: `${40 + Math.random() * 45}%` }}></div>
-                                            </div>
-                                            <span className={styles.barLabel}>{day}</span>
-                                        </div>
-                                    ))}
+                                <div className="h-[250px] w-full mt-4">
+                                    <CashFlowChart data={chartData} />
                                 </div>
                             </div>
-                        </section>
+                        </motion.section>
 
                         {/* Recent Activity */}
-                        <section className={styles.section}>
+                        <motion.section variants={itemVariants} className={styles.section}>
                             <div className={styles.sectionHeader}>
                                 <h3>Recent Activity</h3>
                                 <button className={styles.linkBtn}>View All</button>
@@ -206,13 +204,13 @@ export default function DashboardPage() {
                                     <div className={styles.emptyActivity}>No recent transactions</div>
                                 )}
                             </div>
-                        </section>
+                        </motion.section>
                     </div>
 
                     {/* Right Column */}
                     <div className={styles.rightColumn}>
                         {/* Upcoming Bills */}
-                        <section className={styles.sideCard}>
+                        <motion.section variants={itemVariants} className={styles.sideCard}>
                             <h3>Upcoming Bills</h3>
                             <div className={styles.billsList}>
                                 <div className={styles.billItem}>
@@ -224,7 +222,7 @@ export default function DashboardPage() {
                                     <span className={styles.billAmount}>$2,400</span>
                                 </div>
                                 <button className={styles.payNowBtn}>Pay Now</button>
-                                
+
                                 <div className={styles.billItem}>
                                     <div className={styles.billIcon}>⚡</div>
                                     <div className={styles.billInfo}>
@@ -235,24 +233,27 @@ export default function DashboardPage() {
                                 </div>
                                 <button className={styles.scheduleBtn}>Schedule</button>
                             </div>
-                        </section>
+                        </motion.section>
 
                         {/* Savings Goal */}
-                        <section className={styles.sideCard}>
+                        <motion.section variants={itemVariants} className={styles.sideCard}>
                             <h3>Savings Goal</h3>
                             <p className={styles.goalSubtitle}>Europe Trip 2024</p>
                             <div className={styles.goalProgress}>
                                 <svg className={styles.progressRing} viewBox="0 0 100 100">
                                     <circle cx="50" cy="50" r="40" fill="none" stroke="#2d3748" strokeWidth="8" />
-                                    <circle 
-                                        cx="50" cy="50" r="40" 
-                                        fill="none" 
-                                        stroke="var(--primary)" 
+                                    <motion.circle
+                                        cx="50" cy="50" r="40"
+                                        fill="none"
+                                        stroke="var(--primary)"
                                         strokeWidth="8"
                                         strokeDasharray="251.2"
                                         strokeDashoffset="62.8"
                                         strokeLinecap="round"
                                         style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
+                                        initial={{ strokeDashoffset: 251.2 }}
+                                        animate={{ strokeDashoffset: 62.8 }}
+                                        transition={{ duration: 1.5, ease: "easeOut" }}
                                     />
                                 </svg>
                                 <div className={styles.progressText}>
@@ -265,10 +266,10 @@ export default function DashboardPage() {
                                 <span>Target: $5,000</span>
                             </div>
                             <button className={styles.contributeBtn}>Add Contribution</button>
-                        </section>
+                        </motion.section>
 
                         {/* Quick Transfer */}
-                        <section className={styles.quickTransferCard}>
+                        <motion.section variants={itemVariants} className={styles.quickTransferCard}>
                             <h3>Quick Transfer</h3>
                             <div className={styles.transferAvatars}>
                                 <div className={styles.addAvatar}>
@@ -277,10 +278,10 @@ export default function DashboardPage() {
                                 <div className={styles.transferAvatar}>S</div>
                                 <div className={styles.transferAvatar}>M</div>
                             </div>
-                        </section>
+                        </motion.section>
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
