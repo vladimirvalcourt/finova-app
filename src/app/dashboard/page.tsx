@@ -13,12 +13,29 @@ import { CountUpCurrency } from '@/components/ui/CountUp'
 import styles from './page.module.css'
 
 export default function DashboardPage() {
-    const { data: session } = useSession()
-    const { totalBalance, isLoading: balanceLoading } = useTotalBalance()
-    const { income, expenses } = useMonthlyStats()
-    const { transactions } = useRecentTransactions(5)
-    const { accounts } = useAccounts()
-    const { totalValue: investmentValue, overallReturn: investmentReturn } = useInvestments()
+    // const { data: session } = useSession()
+    // const { totalBalance, isLoading: balanceLoading } = useTotalBalance()
+    // const { income, expenses } = useMonthlyStats()
+    // const { transactions } = useRecentTransactions(5)
+    // const { accounts } = useAccounts()
+    // const { totalValue: investmentValue, overallReturn: investmentReturn } = useInvestments()
+
+    // DEMO DATA INJECTION
+    const session = { user: { name: 'Vladimir Valcourt' } }
+    const totalBalance = 24500.50
+    const income = 8250
+    const expenses = 3420
+    const accounts = [
+        { id: '1234', balance: 14250.50, type: 'CHECKING' },
+        { id: '5678', balance: 10250.00, type: 'SAVINGS' }
+    ]
+    const transactions = [
+        { id: '1', amount: -45.00, description: 'Uber Ride', date: new Date().toISOString(), type: 'expense', category: { name: 'Transport' } },
+        { id: '2', amount: -120.50, description: 'Whole Foods Market', date: new Date().toISOString(), type: 'expense', category: { name: 'Groceries' } },
+        { id: '3', amount: 4500.00, description: 'Design Project', date: new Date().toISOString(), type: 'income', category: { name: 'Income' } },
+        { id: '4', amount: -15.99, description: 'Netflix Premium', date: new Date().toISOString(), type: 'expense', category: { name: 'Entertainment' } },
+        { id: '5', amount: -85.00, description: 'Electric Bill', date: new Date().toISOString(), type: 'expense', category: { name: 'Utilities' } },
+    ]
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
