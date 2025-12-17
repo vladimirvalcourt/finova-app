@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { IntlProvider } from "@/components/providers/IntlProvider";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
@@ -76,6 +77,7 @@ export default function RootLayout({
           <IntlProvider>
             <ErrorBoundary>
               {children}
+              <InstallPrompt />
             </ErrorBoundary>
           </IntlProvider>
         </ThemeProvider>
