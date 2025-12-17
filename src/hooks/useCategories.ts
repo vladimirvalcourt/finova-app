@@ -1,7 +1,4 @@
-// Categories hook using Supabase
-
 import useSWR from 'swr'
-import { supabase } from '@/lib/supabase'
 
 export interface Category {
     id: string
@@ -46,7 +43,6 @@ export function useCategories() {
 // Hook to get categories by type
 export function useCategoriesByType(type: 'INCOME' | 'EXPENSE') {
     const { categories, isLoading, isError } = useCategories()
-
     const filteredCategories = categories.filter((cat) => cat.type === type)
 
     return {
@@ -77,23 +73,18 @@ export function useCategoryMutations() {
         color?: string
         parent_id?: string | null
     }) => {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) throw new Error('Not authenticated')
+        const res = await fetch('/api/data/categories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(category),
+        })
 
-        const { data, error } = await supabase
-            .from('categories')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .insert({
-                ...category,
-                user_id: user.id,
-                icon: category.icon || '📁',
-                color: category.color || '#6366f1',
-            })
-            .select()
-            .single()
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to create category')
+        }
 
-        if (error) throw error
-
+        const data = await res.json()
         await mutate()
         return data
     }
@@ -103,27 +94,31 @@ export function useCategoryMutations() {
         icon?: string
         color?: string
     }) => {
-        const { data, error } = await supabase
-            .from('categories')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .update(updates)
-            .eq('id', id)
-            .select()
-            .single()
+        const res = await fetch('/api/data/categories', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...updates }),
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to update category')
+        }
 
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const deleteCategory = async (id: string) => {
-        const { error } = await supabase
-            .from('categories')
-            .delete()
-            .eq('id', id)
+        const res = await fetch(`/api/data/categories?id=${id}`, {
+            method: 'DELETE',
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to delete category')
+        }
 
         await mutate()
     }

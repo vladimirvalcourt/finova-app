@@ -1,77 +1,134 @@
-import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { createClient } from "@supabase/supabase-js";
+import { NextResponse } from 'next/server'
+import { getAuthenticatedUser } from '@/lib/supabase-admin'
+import { handleApiError, ApiError } from '@/lib/api-error'
+import { createBudgetSchema, updateBudgetSchema } from '@/lib/validations/schemas'
 
+// GET all budgets with spent calculation
 export async function GET() {
     try {
-        const session = await getServerSession(authOptions);
+        const { user, supabase } = await getAuthenticatedUser()
 
-        if (!session?.user?.email) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
-
-        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-        const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-        const supabase = createClient(supabaseUrl, supabaseKey);
-
-        const { data: user, error: userError } = await supabase
-            .from("users")
-            .select("id")
-            .eq("email", session.user.email)
-            .single();
-
-        if (userError || !user) {
-            return NextResponse.json({ error: "User not found" }, { status: 404 });
-        }
-
-        // Fetch budgets
         const { data: budgets, error } = await supabase
-            .from("budgets")
+            .from('budgets')
             .select(`
                 *,
                 category:categories(name, icon, color)
             `)
-            .eq("user_id", user.id)
-            .order("created_at", { ascending: false });
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
 
-        if (error) {
-            console.error("Error fetching budgets:", error);
-            return NextResponse.json({ error: "Failed to fetch budgets" }, { status: 500 });
-        }
+        if (error) throw ApiError.internal('Failed to fetch budgets')
 
-        // Calculate spent amount for each budget
+        // Calculate spent for each budget
         const budgetsWithSpent = await Promise.all(
             (budgets || []).map(async (budget: any) => {
                 const { data: transactions } = await supabase
-                    .from("transactions")
-                    .select("amount")
-                    .eq("user_id", user.id)
-                    .eq("category_id", budget.category_id)
-                    .eq("type", "EXPENSE")
-                    .gte("date", budget.start_date)
-                    .lte("date", budget.end_date || new Date().toISOString());
+                    .from('transactions')
+                    .select('amount')
+                    .eq('user_id', user.id)
+                    .eq('category_id', budget.category_id)
+                    .eq('type', 'EXPENSE')
+                    .gte('date', budget.start_date)
+                    .lte('date', budget.end_date || new Date().toISOString())
 
                 const spent = (transactions as any[])?.reduce(
                     (sum, t) => sum + Math.abs(Number(t.amount)),
                     0
-                ) || 0;
-
-                const remaining = Number(budget.amount) - spent;
-                const percentage = (spent / Number(budget.amount)) * 100;
+                ) || 0
 
                 return {
                     ...budget,
                     spent,
-                    remaining,
-                    percentage,
-                };
+                    remaining: Number(budget.amount) - spent,
+                    percentage: (spent / Number(budget.amount)) * 100,
+                }
             })
-        );
+        )
 
-        return NextResponse.json(budgetsWithSpent);
+        return NextResponse.json(budgetsWithSpent)
     } catch (error) {
-        console.error("Server error:", error);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+        return handleApiError(error)
+    }
+}
+
+// POST create budget
+export async function POST(request: Request) {
+    try {
+        const { user, supabase } = await getAuthenticatedUser()
+        const body = await request.json()
+
+        const validated = createBudgetSchema.parse(body)
+
+        const { data, error } = await supabase
+            .from('budgets')
+            .insert({
+                ...validated,
+                user_id: user.id,
+            })
+            .select(`
+                *,
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw ApiError.internal('Failed to create budget')
+
+        return NextResponse.json(data, { status: 201 })
+    } catch (error) {
+        return handleApiError(error)
+    }
+}
+
+// PUT update budget
+export async function PUT(request: Request) {
+    try {
+        const { user, supabase } = await getAuthenticatedUser()
+        const body = await request.json()
+
+        const { id, ...updates } = body
+        if (!id) throw ApiError.badRequest('Budget ID is required')
+
+        const validated = updateBudgetSchema.parse(updates)
+
+        const { data, error } = await supabase
+            .from('budgets')
+            .update(validated)
+            .eq('id', id)
+            .eq('user_id', user.id)
+            .select(`
+                *,
+                category:categories(name, icon, color)
+            `)
+            .single()
+
+        if (error) throw ApiError.internal('Failed to update budget')
+        if (!data) throw ApiError.notFound('Budget not found')
+
+        return NextResponse.json(data)
+    } catch (error) {
+        return handleApiError(error)
+    }
+}
+
+// DELETE budget
+export async function DELETE(request: Request) {
+    try {
+        const { user, supabase } = await getAuthenticatedUser()
+        const { searchParams } = new URL(request.url)
+        const id = searchParams.get('id')
+
+        if (!id) throw ApiError.badRequest('Budget ID is required')
+
+        const { error } = await supabase
+            .from('budgets')
+            .delete()
+            .eq('id', id)
+            .eq('user_id', user.id)
+
+        if (error) throw ApiError.internal('Failed to delete budget')
+
+        return NextResponse.json({ success: true })
+    } catch (error) {
+        return handleApiError(error)
     }
 }

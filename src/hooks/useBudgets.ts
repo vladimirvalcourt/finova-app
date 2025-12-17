@@ -1,12 +1,11 @@
 import useSWR from 'swr'
-import { supabase } from '@/lib/supabase'
 
 export interface Budget {
     id: string
     user_id: string
     category_id: string
     amount: number
-    period: 'weekly' | 'monthly' | 'yearly'
+    period: 'WEEKLY' | 'MONTHLY' | 'YEARLY'
     start_date: string
     end_date: string | null
     created_at: string
@@ -60,7 +59,7 @@ export function useCurrentMonthBudgets() {
     const currentMonthBudgets = budgets.filter((budget) => {
         const startDate = new Date(budget.start_date)
         return (
-            budget.period === 'monthly' &&
+            budget.period === 'MONTHLY' &&
             startDate.getMonth() === now.getMonth() &&
             startDate.getFullYear() === now.getFullYear()
         )
@@ -103,62 +102,57 @@ export function useBudgetMutations() {
     const createBudget = async (budget: {
         category_id: string
         amount: number
-        period: 'weekly' | 'monthly' | 'yearly'
+        period: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY'
         start_date: string
         end_date?: string | null
     }) => {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) throw new Error('Not authenticated')
+        const res = await fetch('/api/data/budgets', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(budget),
+        })
 
-        const { data, error } = await supabase
-            .from('budgets')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .insert({
-                ...budget,
-                user_id: user.id,
-            })
-            .select(`
-                *,
-                category:categories(name, icon, color)
-            `)
-            .single()
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to create budget')
+        }
 
-        if (error) throw error
-
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const updateBudget = async (id: string, updates: {
         amount?: number
-        period?: 'weekly' | 'monthly' | 'yearly'
+        period?: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'YEARLY'
         start_date?: string
         end_date?: string | null
     }) => {
-        const { data, error } = await supabase
-            .from('budgets')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .update(updates)
-            .eq('id', id)
-            .select(`
-                *,
-                category:categories(name, icon, color)
-            `)
-            .single()
+        const res = await fetch('/api/data/budgets', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...updates }),
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to update budget')
+        }
 
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const deleteBudget = async (id: string) => {
-        const { error } = await supabase
-            .from('budgets')
-            .delete()
-            .eq('id', id)
+        const res = await fetch(`/api/data/budgets?id=${id}`, {
+            method: 'DELETE',
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to delete budget')
+        }
 
         await mutate()
     }
@@ -169,4 +163,3 @@ export function useBudgetMutations() {
         deleteBudget,
     }
 }
-

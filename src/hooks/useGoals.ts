@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-import { supabase } from '@/lib/supabase'
 import type { Database } from '@/types/database.types'
 
 type Goal = Database['public']['Tables']['goals']['Row']
@@ -65,22 +64,18 @@ export function useGoalMutations() {
         icon?: string
         color?: string
     }) => {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) throw new Error('Not authenticated')
+        const res = await fetch('/api/data/goals', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(goal),
+        })
 
-        const { data, error } = await supabase
-            .from('goals')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .insert({
-                ...goal,
-                user_id: user.id,
-                current_amount: goal.current_amount || 0,
-            })
-            .select()
-            .single()
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to create goal')
+        }
 
-        if (error) throw error
-
+        const data = await res.json()
         await mutate()
         return data
     }
@@ -93,54 +88,48 @@ export function useGoalMutations() {
         icon?: string
         color?: string
     }) => {
-        const { data, error } = await supabase
-            .from('goals')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .update(updates)
-            .eq('id', id)
-            .select()
-            .single()
+        const res = await fetch('/api/data/goals', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...updates }),
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to update goal')
+        }
 
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const deleteGoal = async (id: string) => {
-        const { error } = await supabase
-            .from('goals')
-            .delete()
-            .eq('id', id)
+        const res = await fetch(`/api/data/goals?id=${id}`, {
+            method: 'DELETE',
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to delete goal')
+        }
 
         await mutate()
     }
 
     const addContribution = async (id: string, amount: number) => {
-        // Get current goal
-        const { data: goal } = await supabase
-            .from('goals')
-            .select('current_amount')
-            .eq('id', id)
-            .single()
+        const res = await fetch('/api/data/goals', {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, amount }),
+        })
 
-        if (!goal) throw new Error('Goal not found')
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to add contribution')
+        }
 
-        // @ts-ignore - Types will resolve when Supabase is connected
-        const newAmount = Number(goal.current_amount) + amount
-
-        const { data, error } = await supabase
-            .from('goals')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .update({ current_amount: newAmount })
-            .eq('id', id)
-            .select()
-            .single()
-
-        if (error) throw error
-
+        const data = await res.json()
         await mutate()
         return data
     }
@@ -152,4 +141,3 @@ export function useGoalMutations() {
         addContribution,
     }
 }
-

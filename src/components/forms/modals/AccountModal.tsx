@@ -14,10 +14,11 @@ interface AccountModalProps {
 }
 
 const accountTypes = [
-    { value: 'checking', label: '🏦 Checking', color: '#3b82f6' },
-    { value: 'savings', label: '💰 Savings', color: '#10b981' },
-    { value: 'credit', label: '💳 Credit Card', color: '#f59e0b' },
-    { value: 'investment', label: '📈 Investment', color: '#8b5cf6' },
+    { value: 'CHECKING', label: '🏦 Checking', color: '#3b82f6' },
+    { value: 'SAVINGS', label: '💰 Savings', color: '#10b981' },
+    { value: 'CREDIT', label: '💳 Credit Card', color: '#f59e0b' },
+    { value: 'INVESTMENT', label: '📈 Investment', color: '#8b5cf6' },
+    { value: 'CASH', label: '💵 Cash', color: '#22c55e' },
 ]
 
 export function AccountModal({
@@ -33,7 +34,7 @@ export function AccountModal({
 
     const [formData, setFormData] = useState({
         name: '',
-        type: 'checking' as 'checking' | 'savings' | 'credit' | 'investment',
+        type: 'CHECKING' as 'CHECKING' | 'SAVINGS' | 'CREDIT' | 'INVESTMENT' | 'CASH',
         balance: '',
         currency: 'USD',
         color: '#3b82f6',
@@ -52,7 +53,7 @@ export function AccountModal({
             } else {
                 setFormData({
                     name: '',
-                    type: 'checking',
+                    type: 'CHECKING',
                     balance: '',
                     currency: 'USD',
                     color: '#3b82f6',

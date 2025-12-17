@@ -31,7 +31,7 @@ export function BudgetModal({
     const [formData, setFormData] = useState({
         category_id: '',
         amount: '',
-        period: 'monthly' as 'weekly' | 'monthly' | 'yearly',
+        period: 'MONTHLY' as 'WEEKLY' | 'MONTHLY' | 'YEARLY',
     })
 
     useEffect(() => {
@@ -46,7 +46,7 @@ export function BudgetModal({
                 setFormData({
                     category_id: expenseCategories[0]?.id || '',
                     amount: '',
-                    period: 'monthly',
+                    period: 'MONTHLY',
                 })
             }
             setError(null)
@@ -63,12 +63,12 @@ export function BudgetModal({
             let startDate: Date
             let endDate: Date
 
-            if (formData.period === 'weekly') {
+            if (formData.period === 'WEEKLY') {
                 const day = now.getDay()
                 startDate = new Date(now.setDate(now.getDate() - day))
                 endDate = new Date(startDate)
                 endDate.setDate(endDate.getDate() + 6)
-            } else if (formData.period === 'yearly') {
+            } else if (formData.period === 'YEARLY') {
                 startDate = new Date(now.getFullYear(), 0, 1)
                 endDate = new Date(now.getFullYear(), 11, 31)
             } else {
@@ -203,11 +203,11 @@ export function BudgetModal({
                         Period
                     </label>
                     <div style={{ display: 'flex', gap: 'var(--spacing-2)' }}>
-                        {['weekly', 'monthly', 'yearly'].map((period) => (
+                        {(['WEEKLY', 'MONTHLY', 'YEARLY'] as const).map((period) => (
                             <button
                                 key={period}
                                 type="button"
-                                onClick={() => setFormData((f) => ({ ...f, period: period as any }))}
+                                onClick={() => setFormData((f) => ({ ...f, period }))}
                                 style={{
                                     flex: 1,
                                     padding: 'var(--spacing-3)',
@@ -220,7 +220,7 @@ export function BudgetModal({
                                     transition: 'all var(--transition-fast)',
                                 }}
                             >
-                                {period}
+                                {period.toLowerCase()}
                             </button>
                         ))}
                     </div>

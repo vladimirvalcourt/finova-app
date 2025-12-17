@@ -1,5 +1,4 @@
 import useSWR from 'swr'
-import { supabase } from '@/lib/supabase'
 
 export interface Transaction {
     id: string
@@ -60,7 +59,6 @@ export function useTransactions() {
 // Hook to get recent transactions
 export function useRecentTransactions(limit: number = 5) {
     const { transactions, isLoading, isError } = useTransactions()
-
     const recentTransactions = transactions.slice(0, limit)
 
     return {
@@ -116,57 +114,58 @@ export function useMonthlyStats() {
 export function useTransactionMutations() {
     const { mutate } = useTransactions()
 
-    const createTransaction = async (transaction: Omit<Transaction, 'id' | 'created_at' | 'updated_at'>) => {
-        const { data: { user } } = await supabase.auth.getUser()
-        if (!user) throw new Error('Not authenticated')
+    const createTransaction = async (transaction: {
+        account_id: string
+        category_id?: string | null
+        amount: number
+        description: string
+        type: 'INCOME' | 'EXPENSE' | 'TRANSFER'
+        date?: string
+        recurring?: boolean
+        notes?: string | null
+    }) => {
+        const res = await fetch('/api/data/transactions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(transaction),
+        })
 
-        const { data, error } = await supabase
-            .from('transactions')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .insert({
-                ...transaction,
-                user_id: user.id,
-            })
-            .select(`
-                *,
-                account:accounts(name, color),
-                category:categories(name, icon, color)
-            `)
-            .single()
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to create transaction')
+        }
 
-        if (error) throw error
-
-        // Revalidate the cache
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const updateTransaction = async (id: string, updates: Partial<Transaction>) => {
-        const { data, error } = await supabase
-            .from('transactions')
-            // @ts-ignore - Types will resolve when Supabase is connected
-            .update(updates)
-            .eq('id', id)
-            .select(`
-                *,
-                account:accounts(name, color),
-                category:categories(name, icon, color)
-            `)
-            .single()
+        const res = await fetch('/api/data/transactions', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id, ...updates }),
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to update transaction')
+        }
 
+        const data = await res.json()
         await mutate()
         return data
     }
 
     const deleteTransaction = async (id: string) => {
-        const { error } = await supabase
-            .from('transactions')
-            .delete()
-            .eq('id', id)
+        const res = await fetch(`/api/data/transactions?id=${id}`, {
+            method: 'DELETE',
+        })
 
-        if (error) throw error
+        if (!res.ok) {
+            const error = await res.json()
+            throw new Error(error.error || 'Failed to delete transaction')
+        }
 
         await mutate()
     }
@@ -177,4 +176,3 @@ export function useTransactionMutations() {
         deleteTransaction,
     }
 }
-

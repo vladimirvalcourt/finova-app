@@ -13,7 +13,7 @@ export function DebtPayoffPlanner() {
     // Identify debts (negative balance or CREDIT type)
     const debts = useMemo(() => {
         return accounts.filter(acc =>
-            (acc.type === 'credit' && acc.balance < 0) ||
+            (acc.type === 'CREDIT' && acc.balance < 0) ||
             (acc.balance < 0)
         ).map(acc => ({
             ...acc,
