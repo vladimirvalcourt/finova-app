@@ -33,13 +33,14 @@ export function AiDemoChat() {
         scrollToBottom()
     }, [messages, isOpen])
 
-    const handleSendMessage = async () => {
-        if (!inputValue.trim()) return
+    const handleSendMessage = async (text?: string) => {
+        const messageText = text || inputValue
+        if (!messageText.trim()) return
 
         const userMsg: Message = {
             id: Date.now().toString(),
             role: 'user',
-            content: inputValue
+            content: messageText
         }
 
         setMessages(prev => [...prev, userMsg])
@@ -48,18 +49,32 @@ export function AiDemoChat() {
 
         // Simulate AI thinking and response
         setTimeout(() => {
-            const responses = [
-                "That's a great goal! 🎯 With Finova, you can set a 'Travel Goal' and I'll help you save automatically every time you get paid.",
-                "Entendido. 🏦 Puedo analizar tus gastos y encontrar dónde ahorrar. ¿Te gustaría ver un presupuesto de ejemplo?",
-                "Mwen ka ede w konprann kote lajan w ap ale. 📉 Let's track your expenses together so you can send more home.",
-                "Smart move! 💡 Investing just $50 a month can grow significantly over time. Want to see a projection?"
-            ]
-            const randomResponse = responses[Math.floor(Math.random() * responses.length)]
+            let responseContent = ""
+
+            // Check for joke request
+            if (messageText.toLowerCase().includes('joke')) {
+                const jokes = [
+                    "Why did the banker break up with his girlfriend? She lost interest! 😂💸",
+                    "Why is money called dough? Because we all knead it! 🍞💵",
+                    "What did the dollar say to the penny? You make no cents. 🪙😅",
+                    "Why don't chickens invest in the stock market? They prefer distinct-eggs! 🥚📈",
+                    "I told my budget I needed more space... now there's just a lot of checking and no savings. 🏦💔"
+                ]
+                responseContent = jokes[Math.floor(Math.random() * jokes.length)]
+            } else {
+                const responses = [
+                    "That's a great goal! 🎯 With Finova, you can set a 'Travel Goal' and I'll help you save automatically every time you get paid.",
+                    "Entendido. 🏦 Puedo analizar tus gastos y encontrar dónde ahorrar. ¿Te gustaría ver un presupuesto de ejemplo?",
+                    "Mwen ka ede w konprann kote lajan w ap ale. 📉 Let's track your expenses together so you can send more home.",
+                    "Smart move! 💡 Investing just $50 a month can grow significantly over time. Want to see a projection?"
+                ]
+                responseContent = responses[Math.floor(Math.random() * responses.length)]
+            }
 
             const aiMsg: Message = {
                 id: (Date.now() + 1).toString(),
                 role: 'assistant',
-                content: randomResponse
+                content: responseContent
             }
 
             setMessages(prev => [...prev, aiMsg])
@@ -113,8 +128,8 @@ export function AiDemoChat() {
                                 >
                                     <div
                                         className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${msg.role === 'user'
-                                                ? 'bg-indigo-600 text-white rounded-br-none'
-                                                : 'bg-white/10 text-white/90 rounded-bl-none border border-white/5'
+                                            ? 'bg-indigo-600 text-white rounded-br-none'
+                                            : 'bg-white/10 text-white/90 rounded-bl-none border border-white/5'
                                             }`}
                                     >
                                         {msg.content}
@@ -128,6 +143,22 @@ export function AiDemoChat() {
                                         <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-indigo-400 [animation-delay:-0.15s]" />
                                         <div className="h-1.5 w-1.5 animate-bounce rounded-full bg-indigo-400" />
                                     </div>
+                                </div>
+                            )}
+                            {messages.length < 3 && !isTyping && (
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    <button
+                                        onClick={() => handleSendMessage("Tell me a financial joke 😂")}
+                                        className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/80 hover:bg-white/10 hover:border-indigo-400 transition-all"
+                                    >
+                                        Tell me a joke 😂
+                                    </button>
+                                    <button
+                                        onClick={() => handleSendMessage("How can I save $1000?")}
+                                        className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/80 hover:bg-white/10 hover:border-indigo-400 transition-all"
+                                    >
+                                        How to save $1000? 💰
+                                    </button>
                                 </div>
                             )}
                             <div ref={messagesEndRef} />
