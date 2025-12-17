@@ -1,235 +1,89 @@
 'use client'
 
-import React, { useState } from 'react'
-import Link from 'next/link'
-import { DashboardCard, GoalsWidget, HeroMetricCard, UpcomingBillsWidget, SpendingTrendsWidget, CategoryBreakdownWidget, NetWorthWidget, RecurringWidget, CashFlowWidget, BillAlertsWidget } from '@/components/dashboard'
-import { TransactionFormModal, AccountFormModal, GoalFormModal, BudgetFormModal } from '@/components/forms'
-import { Bell, Search, Command, Plus, ChevronDown, ChevronUp } from 'lucide-react'
-import { useRecentTransactions } from '@/hooks/useTransactions'
-import { SpendingByCategoryChart } from '@/components/charts'
-import { QuickAddTransaction } from '@/components/ai'
-import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
-import { WelcomeModal } from '@/components/onboarding'
-import { format, formatDistanceToNow } from 'date-fns'
+import React from 'react'
+import { SummaryCard } from '@/components/dashboard/Modern/SummaryCard'
+import { SpendingCard } from '@/components/dashboard/Modern/SpendingCard'
+import { TransactionTable } from '@/components/dashboard/Modern/TransactionTable'
+import { Home, Smartphone, Zap, Wifi, Fuel } from 'lucide-react'
+import { useRecentTransactions, useMonthlyStats } from '@/hooks/useTransactions'
+import { useTotalBalance } from '@/hooks/useAccounts'
+import { useInvestments } from '@/hooks/useInvestments'
 import styles from './page.module.css'
 
 export default function DashboardPage() {
-    // Real data hooks
-    const { transactions: recentTransactions, isLoading: txLoading } = useRecentTransactions(5)
+    // Fetch real data
+    const { totalBalance, isLoading: balanceLoading } = useTotalBalance()
+    const { income, expenses, savingsRate, isLoading: statsLoading } = useMonthlyStats()
+    const { transactions, isLoading: txLoading } = useRecentTransactions(5)
+    const { totalValue: investmentValue, overallReturn: investmentReturn, isLoading: invLoading } = useInvestments()
 
-    // Modal states
-    const [showTransactionModal, setShowTransactionModal] = useState(false)
-    const [showAccountModal, setShowAccountModal] = useState(false)
-    const [showGoalModal, setShowGoalModal] = useState(false)
-    const [showBudgetModal, setShowBudgetModal] = useState(false)
-
-    // Insights visibility
-    const [showMoreInsights, setShowMoreInsights] = useState(false)
+    const isLoading = balanceLoading || statsLoading || txLoading || invLoading
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString)
-        const now = new Date()
-        const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24))
-
-        if (diffDays === 0) return 'Today'
-        if (diffDays === 1) return 'Yesterday'
-        if (diffDays < 7) return formatDistanceToNow(date, { addSuffix: true })
-        return format(date, 'MMM d')
-    }
-
-    // Prepare chart data from transactions
-    const spendingByCategory = recentTransactions
-        .filter(t => t.type?.toLowerCase() === 'expense')
+    // Prepare spending data from transactions
+    const spendingCategories = transactions
+        .filter(t => t.type === 'expense')
         .reduce((acc, t) => {
-            const categoryName = t.category?.name || 'Uncategorized'
-            const existing = acc.find(item => item.name === categoryName)
-            if (existing) {
-                existing.value += Math.abs(Number(t.amount))
-            } else {
-                acc.push({
-                    name: categoryName,
-                    value: Math.abs(Number(t.amount)),
-                    color: t.category?.color || '#71717A'
-                })
-            }
+            const cat = t.category?.name || 'Uncategorized'
+            acc[cat] = (acc[cat] || 0) + Math.abs(Number(t.amount))
             return acc
-        }, [] as { name: string; value: number; color: string }[])
+        }, {} as Record<string, number>)
 
     return (
-        <div className={styles.dashboard}>
-            {/* Professional Header */}
+        <div className={styles.mainContent}>
+            {/* Header */}
             <header className={styles.header}>
-                <div className={styles.headerLeft}>
-                    <h1 className={styles.title}>Dashboard</h1>
-                    <p className={styles.subtitle}>Your financial overview</p>
-                </div>
-
-                <div className={styles.headerRight}>
-                    <div className={styles.searchBar}>
-                        <Search size={14} className={styles.searchIcon} />
-                        <span className={styles.searchText}>Search...</span>
-                        <div className={styles.kbd}>
-                            <Command size={10} />
-                            <span>K</span>
-                        </div>
-                    </div>
-
-                    <LanguageSwitcher />
-
-                    <button className={styles.iconBtn} aria-label="Notifications">
-                        <Bell size={16} />
-                        <div className={styles.badge} />
-                    </button>
-                    <div className={styles.avatar}>VV</div>
-                </div>
+                <h1 className={styles.title}>Dashboard</h1>
             </header>
 
-            {/* Simplified Core Grid (6 Widgets) */}
-            <div className={styles.coreGrid}>
-
-                {/* 1. Hero Metric - Net Worth or Money Left */}
-                <div className={styles.heroCard}>
-                    <HeroMetricCard />
-                </div>
-
-                {/* 2. Goals with Celebrations */}
-                <DashboardCard className={styles.goalsCard}>
-                    <GoalsWidget />
-                </DashboardCard>
-
-                {/* 3. Spending Chart */}
-                <DashboardCard className={styles.chartCard}>
-                    <div className={styles.cardHeader}>
-                        <h3>Spending</h3>
-                    </div>
-                    <div className={styles.chartContent}>
-                        <SpendingByCategoryChart data={spendingByCategory} />
-                    </div>
-                </DashboardCard>
-
-                {/* 4. Quick Add (AI) */}
-                <DashboardCard className={styles.quickAddCard}>
-                    <QuickAddTransaction />
-                </DashboardCard>
-
-                {/* 5. Upcoming Bills (merged) */}
-                <DashboardCard className={styles.billsCard}>
-                    <UpcomingBillsWidget />
-                </DashboardCard>
-
-                {/* 6. Recent Transactions */}
-                <DashboardCard className={styles.transactionsCard}>
-                    <div className={styles.cardHeader}>
-                        <h3>Recent Activity</h3>
-                        <Link href="/dashboard/transactions" className={styles.viewAllLink}>View all</Link>
-                    </div>
-                    {txLoading ? (
-                        <div className={styles.loading}>Loading...</div>
-                    ) : recentTransactions.length === 0 ? (
-                        <div className={styles.emptyState}>
-                            <p>No transactions yet</p>
-                            <button
-                                className={styles.emptyBtn}
-                                onClick={() => setShowTransactionModal(true)}
-                            >
-                                Add your first transaction
-                            </button>
-                        </div>
-                    ) : (
-                        <div className={styles.transactionsList}>
-                            {recentTransactions.map(tx => (
-                                <div key={tx.id} className={styles.txItem}>
-                                    <div className={styles.txIcon}>
-                                        {tx.category?.icon || '💳'}
-                                    </div>
-                                    <div className={styles.txInfo}>
-                                        <span className={styles.txDesc}>{tx.description}</span>
-                                        <span className={styles.txDate}>{formatDate(tx.date)}</span>
-                                    </div>
-                                    <span className={`${styles.txAmount} ${tx.type?.toLowerCase() === 'income' ? styles.income : styles.expense}`}>
-                                        {tx.type?.toLowerCase() === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
-                                    </span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </DashboardCard>
-
+            {/* Summary Cards */}
+            <div className={styles.summarySection}>
+                <SummaryCard 
+                    title="Balance" 
+                    amount={formatCurrency(totalBalance)} 
+                    trend={savingsRate > 0 ? `+${savingsRate.toFixed(1)}% vs last month` : `${savingsRate.toFixed(1)}% vs last month`}
+                    color="blue"
+                />
+                <SummaryCard 
+                    title="Spending" 
+                    amount={formatCurrency(expenses)} 
+                    trend={`${((expenses / (income || 1)) * 100).toFixed(1)}% of income`}
+                    color="yellow"
+                />
+                <SummaryCard 
+                    title="Investment" 
+                    amount={formatCurrency(investmentValue)} 
+                    trend={`${investmentReturn >= 0 ? '+' : ''}${investmentReturn.toFixed(1)}% return`}
+                    color="green"
+                />
             </div>
 
-            {/* More Insights Toggle */}
-            <button
-                className={styles.insightsToggle}
-                onClick={() => setShowMoreInsights(!showMoreInsights)}
-            >
-                {showMoreInsights ? (
-                    <>
-                        <ChevronUp size={18} />
-                        <span>Hide Advanced Insights</span>
-                    </>
-                ) : (
-                    <>
-                        <ChevronDown size={18} />
-                        <span>Show More Insights</span>
-                    </>
-                )}
-            </button>
-
-            {/* Expandable Advanced Insights */}
-            {showMoreInsights && (
-                <div className={styles.insightsGrid}>
-                    <DashboardCard>
-                        <SpendingTrendsWidget />
-                    </DashboardCard>
-                    <DashboardCard>
-                        <CategoryBreakdownWidget />
-                    </DashboardCard>
-                    <DashboardCard>
-                        <NetWorthWidget />
-                    </DashboardCard>
-                    <DashboardCard>
-                        <CashFlowWidget />
-                    </DashboardCard>
+            {/* Spending Section */}
+            <div className={styles.spendingSection}>
+                <h2 className={styles.sectionTitle}>Spending</h2>
+                <div className={styles.spendingGrid}>
+                    {Object.entries(spendingCategories).length > 0 ? (
+                        Object.entries(spendingCategories).map(([cat, amount], i) => (
+                            <SpendingCard 
+                                key={cat}
+                                icon={i % 2 === 0 ? Home : Zap} // Fallback icons
+                                label={cat}
+                                amount={formatCurrency(amount)}
+                                color={i % 2 === 0 ? 'blue' : i % 3 === 0 ? 'purple' : 'yellow'}
+                            />
+                        ))
+                    ) : (
+                        <div className={styles.emptyState} style={{ padding: '1rem', width: '100%', textAlign: 'left' }}>
+                            No spending data this month
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
 
-            {/* Floating Action Button */}
-            <button
-                className={styles.fab}
-                onClick={() => setShowTransactionModal(true)}
-                aria-label="Add transaction"
-            >
-                <Plus size={24} />
-            </button>
-
-            {/* Form Modals */}
-            <TransactionFormModal
-                isOpen={showTransactionModal}
-                onClose={() => setShowTransactionModal(false)}
-            />
-            <AccountFormModal
-                isOpen={showAccountModal}
-                onClose={() => setShowAccountModal(false)}
-            />
-            <GoalFormModal
-                isOpen={showGoalModal}
-                onClose={() => setShowGoalModal(false)}
-            />
-            <BudgetFormModal
-                isOpen={showBudgetModal}
-                onClose={() => setShowBudgetModal(false)}
-            />
-
-            {/* Onboarding */}
-            <WelcomeModal
-                onComplete={() => { }}
-                onAddAccount={() => setShowAccountModal(true)}
-                onAddGoal={() => setShowGoalModal(true)}
-                onAddTransaction={() => setShowTransactionModal(true)}
-            />
+            {/* Transactions Table */}
+            <TransactionTable transactions={transactions} />
         </div>
     )
 }

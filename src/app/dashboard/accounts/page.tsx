@@ -1,15 +1,16 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui/Button'
 import { Card, CardHeader, CardBody } from '@/components/ui/Card'
 import { useAccounts, useTotalBalance } from '@/hooks/useAccounts'
 import { Loader2 } from 'lucide-react'
+import { useModals } from '@/components/providers/ModalProvider'
 import styles from '../page.module.css'
 
 export default function AccountsPage() {
     const { accounts, isLoading, isError } = useAccounts()
     const { totalBalance } = useTotalBalance()
+    const { openAccountModal } = useModals()
 
     const formatCurrency = (amount: number) =>
         new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
@@ -27,151 +28,159 @@ export default function AccountsPage() {
     const getAccountStyle = (type: string) => {
         switch (type?.toLowerCase()) {
             case 'checking':
-                return { icon: '🏦', color: '#4f46e5' }
+                return { icon: '🏦', color: '#6366F1' } // Indigo
             case 'savings':
-                return { icon: '💰', color: '#10b981' }
+                return { icon: '💰', color: '#10B981' } // Emerald
             case 'credit':
-                return { icon: '💳', color: '#e11d48' }
+                return { icon: '💳', color: '#F43F5E' } // Rose
             case 'investment':
-                return { icon: '📈', color: '#f59e0b' }
+                return { icon: '📈', color: '#F59E0B' } // Amber
             case 'cash':
-                return { icon: '💵', color: '#22c55e' }
+                return { icon: '💵', color: '#22C55E' } // Green
             default:
-                return { icon: '🏦', color: '#6366f1' }
+                return { icon: '🏦', color: '#6366F1' }
         }
     }
 
     return (
-        <div className={styles.dashboard}>
-            {/* Header */}
+        <div className={styles.pageContent}>
+            {/* Page Header */}
             <header className={styles.header}>
-                <div className={styles.headerContent}>
-                    <div className={styles.logo}>
-                        <span>💰</span>
-                        <span>Finova</span>
-                    </div>
-                    <nav className={styles.nav}>
-                        <Link href="/dashboard" className={styles.navLink}>
-                            Dashboard
-                        </Link>
-                        <Link href="/dashboard/transactions" className={styles.navLink}>
-                            Transactions
-                        </Link>
-                        <Link href="/dashboard/budgets" className={styles.navLink}>
-                            Budgets
-                        </Link>
-                        <Link href="/dashboard/accounts" className={`${styles.navLink} ${styles.navLinkActive}`}>
-                            Accounts
-                        </Link>
-                    </nav>
-                </div>
+                <h1 className={styles.title}>Accounts</h1>
+                <Button variant="primary" onClick={openAccountModal}>
+                    ➕ Add Account
+                </Button>
             </header>
 
             {/* Main Content */}
-            <div className={styles.container}>
-                <div className={styles.pageHeader}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div>
-                            <h1 className={styles.pageTitle}>Accounts</h1>
-                            <p className={styles.pageSubtitle}>Manage your financial accounts</p>
-                        </div>
-                        <Button variant="primary">➕ Add Account</Button>
-                    </div>
+            {isLoading ? (
+                <div className={styles.loadingState}>
+                    <Loader2 size={48} className={styles.spinner} />
                 </div>
+            ) : isError ? (
+                <div className={styles.errorState}>
+                    Failed to load accounts. Please try again.
+                </div>
+            ) : accounts.length === 0 ? (
+                <div className={styles.emptyState}>
+                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏦</div>
+                    <h3 style={{ marginBottom: '0.5rem', color: '#18181B', fontWeight: 600 }}>No accounts yet</h3>
+                    <p style={{ marginBottom: '1.5rem' }}>
+                        Add your first account to start tracking your finances.
+                    </p>
+                    <Button variant="primary" onClick={openAccountModal}>➕ Add Your First Account</Button>
+                </div>
+            ) : (
+                <>
+                    {/* Total Balance Card */}
+                    <Card variant="gradient" style={{ background: 'linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%)', color: 'white' }}>
+                        <div style={{ textAlign: 'center', padding: 'var(--spacing-6)' }}>
+                            <div style={{ fontSize: '1.125rem', opacity: 0.9, marginBottom: '0.5rem' }}>
+                                Total Net Worth
+                            </div>
+                            <div style={{ fontSize: '3rem', fontWeight: 800 }}>
+                                {formatCurrency(totalBalance)}
+                            </div>
+                        </div>
+                    </Card>
 
-                {isLoading ? (
-                    <div style={{ display: 'flex', justifyContent: 'center', padding: '4rem' }}>
-                        <Loader2 size={48} style={{ animation: 'spin 1s linear infinite' }} />
-                    </div>
-                ) : isError ? (
-                    <Card>
-                        <CardBody>
-                            <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-danger-500)' }}>
-                                Failed to load accounts. Please try again.
-                            </div>
-                        </CardBody>
-                    </Card>
-                ) : accounts.length === 0 ? (
-                    <Card>
-                        <CardBody>
-                            <div style={{ textAlign: 'center', padding: '3rem' }}>
-                                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏦</div>
-                                <h3 style={{ marginBottom: '0.5rem' }}>No accounts yet</h3>
-                                <p style={{ color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}>
-                                    Add your first account to start tracking your finances.
-                                </p>
-                                <Button variant="primary">➕ Add Your First Account</Button>
-                            </div>
-                        </CardBody>
-                    </Card>
-                ) : (
-                    <>
-                        {/* Total Balance */}
-                        <Card variant="gradient" style={{ marginBottom: 'var(--spacing-8)' }}>
-                            <div style={{ textAlign: 'center', padding: 'var(--spacing-4)' }}>
-                                <div style={{ fontSize: 'var(--font-size-lg)', opacity: 0.9, marginBottom: 'var(--spacing-2)' }}>
-                                    Total Net Worth
+                    {/* Account Summary Stats */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                        <Card className={styles.tableCard}>
+                            <div style={{ padding: '1.5rem' }}>
+                                <div style={{ fontSize: '0.875rem', color: '#71717A', marginBottom: '0.5rem' }}>
+                                    Total Assets
                                 </div>
-                                <div style={{ fontSize: 'var(--font-size-5xl)', fontWeight: 'var(--font-weight-extrabold)' }}>
-                                    {formatCurrency(totalBalance)}
+                                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#059669' }}>
+                                    {formatCurrency(totalAssets)}
                                 </div>
                             </div>
                         </Card>
+                        <Card className={styles.tableCard}>
+                            <div style={{ padding: '1.5rem' }}>
+                                <div style={{ fontSize: '0.875rem', color: '#71717A', marginBottom: '0.5rem' }}>
+                                    Total Liabilities
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#DC2626' }}>
+                                    {formatCurrency(totalLiabilities)}
+                                </div>
+                            </div>
+                        </Card>
+                        <Card className={styles.tableCard}>
+                            <div style={{ padding: '1.5rem' }}>
+                                <div style={{ fontSize: '0.875rem', color: '#71717A', marginBottom: '0.5rem' }}>
+                                    Active Accounts
+                                </div>
+                                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#18181B' }}>
+                                    {accounts.length}
+                                </div>
+                            </div>
+                        </Card>
+                    </div>
 
-                        {/* Accounts Grid */}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: 'var(--spacing-6)' }}>
-                            {accounts.map((account) => {
-                                const style = getAccountStyle(account.type)
-                                const balance = Number(account.balance)
+                    {/* Accounts Grid */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+                        {accounts.map((account) => {
+                            const style = getAccountStyle(account.type)
+                            const balance = Number(account.balance)
 
-                                return (
-                                    <Card
-                                        key={account.id}
-                                        hoverable
-                                        clickable
-                                        style={{
-                                            borderLeft: `4px solid ${style.color}`,
-                                        }}
-                                    >
-                                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 'var(--spacing-4)' }}>
-                                            <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-3)' }}>
+                            return (
+                                <Card
+                                    key={account.id}
+                                    hoverable
+                                    clickable
+                                    className={styles.tableCard}
+                                    style={{
+                                        borderLeft: `4px solid ${style.color}`,
+                                    }}
+                                >
+                                    <div style={{ padding: '1.5rem' }}>
+                                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                                 <div style={{
-                                                    fontSize: '2rem',
-                                                    width: '60px',
-                                                    height: '60px',
+                                                    fontSize: '1.5rem',
+                                                    width: '48px',
+                                                    height: '48px',
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center',
-                                                    background: `${style.color}20`,
-                                                    borderRadius: 'var(--radius-xl)',
+                                                    background: `${style.color}15`,
+                                                    borderRadius: '12px',
                                                 }}>
                                                     {style.icon}
                                                 </div>
                                                 <div>
-                                                    <h3 style={{ fontSize: 'var(--font-size-xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-text-primary)', marginBottom: 'var(--spacing-1)' }}>
+                                                    <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#18181B', marginBottom: '0.25rem' }}>
                                                         {account.name}
                                                     </h3>
-                                                    <p style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)' }}>
+                                                    <span style={{ 
+                                                        fontSize: '0.75rem', 
+                                                        color: '#71717A', 
+                                                        background: '#F4F4F5',
+                                                        padding: '0.25rem 0.5rem',
+                                                        borderRadius: '100px',
+                                                        textTransform: 'capitalize'
+                                                    }}>
                                                         {account.type}
-                                                    </p>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div style={{ marginBottom: 'var(--spacing-4)' }}>
-                                            <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-1)' }}>
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <div style={{ fontSize: '0.875rem', color: '#71717A', marginBottom: '0.5rem' }}>
                                                 Current Balance
                                             </div>
                                             <div style={{
-                                                fontSize: 'var(--font-size-3xl)',
-                                                fontWeight: 'var(--font-weight-extrabold)',
-                                                color: balance < 0 ? 'var(--color-danger-600)' : 'var(--color-text-primary)',
+                                                fontSize: '1.875rem',
+                                                fontWeight: 800,
+                                                color: balance < 0 ? '#DC2626' : '#18181B',
                                             }}>
                                                 {balance < 0 ? '-' : ''}{formatCurrency(Math.abs(balance))}
                                             </div>
                                         </div>
 
-                                        <div style={{ display: 'flex', gap: 'var(--spacing-2)' }}>
+                                        <div style={{ display: 'flex', gap: '0.75rem' }}>
                                             <Button variant="secondary" size="small" fullWidth>
                                                 View Details
                                             </Button>
@@ -179,46 +188,13 @@ export default function AccountsPage() {
                                                 Edit
                                             </Button>
                                         </div>
-                                    </Card>
-                                )
-                            })}
-                        </div>
-
-                        {/* Account Summary */}
-                        <Card style={{ marginTop: 'var(--spacing-8)' }}>
-                            <CardHeader title="Account Summary" />
-                            <CardBody>
-                                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--spacing-6)' }}>
-                                    <div>
-                                        <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-2)' }}>
-                                            Total Assets
-                                        </div>
-                                        <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-success-600)' }}>
-                                            {formatCurrency(totalAssets)}
-                                        </div>
                                     </div>
-                                    <div>
-                                        <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-2)' }}>
-                                            Total Liabilities
-                                        </div>
-                                        <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-danger-600)' }}>
-                                            {formatCurrency(totalLiabilities)}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', marginBottom: 'var(--spacing-2)' }}>
-                                            Number of Accounts
-                                        </div>
-                                        <div style={{ fontSize: 'var(--font-size-2xl)', fontWeight: 'var(--font-weight-bold)', color: 'var(--color-text-primary)' }}>
-                                            {accounts.length}
-                                        </div>
-                                    </div>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </>
-                )}
-            </div>
+                                </Card>
+                            )
+                        })}
+                    </div>
+                </>
+            )}
         </div>
     )
 }

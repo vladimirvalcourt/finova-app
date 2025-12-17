@@ -15,6 +15,17 @@
     z-index: 1;
 }
 
+.rightPanel {
+    width: 380px;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+    border-left: 1px solid var(--border);
+    background: var(--card);
+    position: sticky;
+    top: 0;
+}
+
 .ambientLight {
     position: fixed;
     top: -20%;
@@ -25,4 +36,11 @@
     filter: blur(80px);
     z-index: -1;
     pointer-events: none;
+}
+
+/* Hide Right Panel on tablet/mobile */
+@media (max-width: 1280px) {
+    .rightPanel {
+        display: none;
+    }
 }
