@@ -6,6 +6,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Globe, MessageCircle, Home, Target, PieChart, Bell, Shield, ChevronDown } from 'lucide-react'
 import { Testimonials } from '@/components/marketing'
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
+import { AiDemoChat } from '@/components/marketing/AiDemoChat'
 import Image from 'next/image'
 import styles from './landing.module.css'
 
@@ -227,6 +228,9 @@ export default function LandingPage() {
           </p>
         </div>
       </footer>
+
+      {/* AI Demo Chat Widget */}
+      <AiDemoChat />
     </div>
   )
 }
