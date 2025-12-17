@@ -3,16 +3,15 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, CreditCard, PieChart, Wallet, Target, Settings, LogOut, Menu, X } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { LayoutDashboard, CreditCard, PieChart, Wallet, Target, Settings, LogOut, Menu, X, Headphones } from 'lucide-react'
 import styles from './Sidebar.module.css'
 import { clsx } from 'clsx'
 
 const navItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', href: '/dashboard' },
+    { icon: LayoutDashboard, label: 'Home', href: '/dashboard' },
+    { icon: Wallet, label: 'Accounts', href: '/dashboard/accounts' },
     { icon: CreditCard, label: 'Transactions', href: '/dashboard/transactions' },
     { icon: PieChart, label: 'Budgets', href: '/dashboard/budgets' },
-    { icon: Wallet, label: 'Accounts', href: '/dashboard/accounts' },
     { icon: Target, label: 'Goals', href: '/dashboard/goals' },
 ]
 
@@ -38,36 +37,48 @@ export function Sidebar() {
             />
 
             <aside className={clsx(styles.sidebar, isOpen && styles.open)}>
-                <div className={styles.logoContainer}>
-                    <div className={styles.logoIcon}>💰</div>
-                    <h1 className={styles.logoText}>Finova</h1>
+                <div>
+                    <div className={styles.logoContainer}>
+                        <div className={styles.logoIcon}>
+                            <Wallet size={20} />
+                        </div>
+                        <div>
+                            <h1 className={styles.logoText}>Finova</h1>
+                            <p className={styles.logoSubtext}>Premium Banking</p>
+                        </div>
+                    </div>
+
+                    <nav className={styles.nav}>
+                        {navItems.map((item) => {
+                            const isActive = pathname === item.href
+
+                            return (
+                                <Link 
+                                    key={item.href} 
+                                    href={item.href} 
+                                    className={styles.linkContainer} 
+                                    onClick={() => setIsOpen(false)}
+                                >
+                                    <div className={clsx(styles.navItem, isActive && styles.active)}>
+                                        <item.icon size={20} className={isActive ? styles.iconActive : styles.icon} />
+                                        <span className={styles.label}>{item.label}</span>
+                                    </div>
+                                </Link>
+                            )
+                        })}
+                    </nav>
                 </div>
 
-                <nav className={styles.nav}>
-                    {navItems.map((item) => {
-                        const isActive = pathname === item.href
-
-                        return (
-                            <Link key={item.href} href={item.href} className={styles.linkContainer} onClick={() => setIsOpen(false)}>
-                                <div
-                                    className={clsx(styles.navItem, isActive && styles.active)}
-                                >
-                                    <item.icon size={20} className={isActive ? styles.iconActive : styles.icon} />
-                                    <span className={styles.label}>{item.label}</span>
-                                    {isActive && (
-                                        <motion.div
-                                            layoutId="activeTab"
-                                            className={styles.activeBackground}
-                                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                                        />
-                                    )}
-                                </div>
-                            </Link>
-                        )
-                    })}
-                </nav>
-
                 <div className={styles.footer}>
+                    <div className={styles.supportCard}>
+                        <h4>
+                            <Headphones size={16} />
+                            Need Help?
+                        </h4>
+                        <p>Contact our 24/7 support team for any issues.</p>
+                        <button>Contact Support</button>
+                    </div>
+
                     <Link href="/settings" className={styles.navItem} onClick={() => setIsOpen(false)}>
                         <Settings size={20} className={styles.icon} />
                         <span className={styles.label}>Settings</span>
