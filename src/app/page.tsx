@@ -1,236 +1,302 @@
-'use client'
 
-import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { LandingHeader } from '@/components/marketing/LandingHeader'
 import { motion } from 'framer-motion'
-import { ArrowRight, Globe, MessageCircle, Home, Target, PieChart, Bell, Shield, ChevronDown } from 'lucide-react'
-import { Testimonials } from '@/components/marketing'
-import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher'
-import { AiDemoChat } from '@/components/marketing/AiDemoChat'
 import Image from 'next/image'
-import styles from './landing.module.css'
 
-export default function LandingPage() {
-  const t = useTranslations('landing')
-
-  const features = [
-    {
-      icon: MessageCircle,
-      title: t('features.ai.title'),
-      description: t('features.ai.desc'),
-    },
-    {
-      icon: Home,
-      title: t('features.home.title'),
-      description: t('features.home.desc'),
-    },
-    {
-      icon: Target,
-      title: t('features.goals.title'),
-      description: t('features.goals.desc'),
-    },
-    {
-      icon: PieChart,
-      title: t('features.spending.title'),
-      description: t('features.spending.desc'),
-    },
-    {
-      icon: Bell,
-      title: t('features.bills.title'),
-      description: t('features.bills.desc'),
-    },
-    {
-      icon: Shield,
-      title: t('features.security.title'),
-      description: t('features.security.desc'),
-    },
-  ]
-
-  const scrollToContent = () => {
-    const featuresSection = document.querySelector(`.${styles.features}`)
-    featuresSection?.scrollIntoView({ behavior: 'smooth' })
-  }
-
+export default function Home() {
   return (
-    <div className={styles.page}>
-      {/* Navigation */}
-      <nav className={styles.nav}>
-        <div className={styles.navContent}>
-          <div className={styles.logo}>
-            <Image
-              src="/icon-192x192.png"
-              alt="Finova Logo"
-              width={32}
-              height={32}
-              className={styles.logoIcon}
-              priority
-            />
-            <span className={styles.logoText}>Finova</span>
-          </div>
-          <div className={styles.navLinks}>
-            <LanguageSwitcher />
-            <Link href="/login" className={styles.navLink}>Log in</Link>
-            <Link href="/signup" className={styles.navLinkPrimary}>
-              Get Started <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </nav>
+    <div style={{
+      fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      background: '#FAFAF9',
+      minHeight: '100vh',
+      color: '#18181B',
+      overflowX: 'hidden'
+    }}>
+      <LandingHeader />
 
       {/* Hero Section */}
-      <section className={styles.hero}>
-        <motion.div
-          className={styles.heroContent}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-        >
-          <div className={styles.badge}>
-            <span style={{ fontSize: '1.2rem' }}>✨</span>
-            <span>{t('badge')}</span>
+      <section style={{
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '10rem 2rem 8rem',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '4rem'
+      }}>
+        {/* Text Content */}
+        <div style={{ maxWidth: '600px' }}>
+          {/* Badge */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.5rem 1rem',
+              background: 'rgba(0,0,0,0.04)',
+              borderRadius: '100px',
+              fontSize: '0.875rem',
+              fontWeight: 500,
+              color: '#52525B',
+              width: 'fit-content',
+              marginBottom: '1.5rem'
+            }}
+          >
+            <span>Built for families like yours</span>
           </div>
 
-          <h1 className={styles.heroTitle}>
-            {t('headline')}
-            {/* <span className={styles.heroGradient}>{t('headlineGradient')}</span> Removed gradient for cleaner look */}
+          {/* Headline */}
+          <h1
+            style={{
+              fontFamily: 'serif',
+              fontSize: 'clamp(3.5rem, 8vw, 5.5rem)',
+              lineHeight: 1,
+              fontWeight: 500,
+              letterSpacing: '-0.04em',
+              margin: 0,
+              marginBottom: '1.5rem'
+            }}
+          >
+            Manage money.<br />
+            <span style={{ color: '#71717A', fontStyle: 'italic' }}>In your language.</span>
           </h1>
 
-          <p className={styles.heroSubtitle}>
-            {t('subtitle')}
+          {/* Subheadline */}
+          <p
+            style={{
+              fontSize: 'clamp(1.125rem, 2vw, 1.25rem)',
+              lineHeight: 1.6,
+              color: '#52525B',
+              maxWidth: '480px',
+              margin: 0,
+              marginBottom: '2rem'
+            }}
+          >
+            The first finance app that speaks Spanish, Tagalog, Creole, and 15+ more languages.
+            Because you shouldn't have to translate your bank account.
           </p>
 
-          <div className={styles.heroCta}>
-            <Link href="/signup" className={styles.ctaPrimary}>
-              {t('cta')}
-            </Link>
-            <Link href="/dashboard" className={styles.ctaSecondary}>
-              {t('ctaDemo')} <ArrowRight size={18} />
-            </Link>
+          {/* CTA Buttons */}
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <button style={{
+              padding: '1.1rem 2.2rem',
+              background: '#18181B',
+              color: 'white',
+              border: 'none',
+              borderRadius: '100px',
+              fontSize: '1rem',
+              fontWeight: 600,
+              cursor: 'pointer',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.1)'
+            }}>
+              Start budgeting in your language
+            </button>
+
+            <button style={{
+              padding: '1.1rem 2.2rem',
+              background: 'transparent',
+              color: '#18181B',
+              border: '1.5px solid #E4E4E7',
+              borderRadius: '100px',
+              fontSize: '1rem',
+              fontWeight: 500,
+              cursor: 'pointer'
+            }}>
+              See it in action →
+            </button>
           </div>
 
-          {/* Stats removed from hero for cleaner look, potentially move below */}
-        </motion.div>
-
-        {/* Hero Illustration - Right Side (Desktop) */}
-        <motion.div
-          className={styles.heroImageWrapper}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
-        >
-          <Image
-            src="/hero-illustration.png"
-            alt="Finova App Interface"
-            width={800}
-            height={800}
-            className={styles.heroIllustration}
-            priority
-          />
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          className={styles.scrollIndicator}
-          onClick={scrollToContent}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-        >
-          <ChevronDown size={24} />
-        </motion.div>
+        </div>
       </section>
 
       {/* Features Section */}
-      <section className={styles.features}>
-        <div className={styles.featuresHeader}>
-          <h2 className={styles.sectionTitle}>{t('features.title')}</h2>
-          <p className={styles.sectionSubtitle}>
-            {t('features.subtitle')}
-          </p>
-        </div>
-        <div className={styles.featuresGrid}>
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className={styles.featureCard}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              viewport={{ once: true, margin: '-100px' }}
-            >
-              <div className={styles.featureIcon}>
-                <feature.icon size={28} />
-              </div>
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Social Proof Section */}
-      <section className={styles.socialProof}>
-        <div className={styles.socialProofContent}>
-          <div className={styles.socialProofQuote}>
-            <span className={styles.quoteIcon}>"</span>
-            <p className={styles.quoteText}>
-              {t('socialProof.quote')}
+      <section style={{
+        background: 'white',
+        padding: '6rem 2rem',
+        borderRadius: '3rem 3rem 0 0'
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          {/* Section Header */}
+          <div style={{ marginBottom: '4rem', maxWidth: '600px' }}>
+            <p style={{
+              fontSize: '0.875rem',
+              fontWeight: 600,
+              color: '#A1A1AA',
+              textTransform: 'uppercase',
+              letterSpacing: '0.1em',
+              marginBottom: '1rem'
+            }}>
+              Features
+            </p>
+            <h2 style={{
+              fontFamily: 'serif',
+              fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+              lineHeight: 1.1,
+              fontWeight: 500,
+              letterSpacing: '-0.02em',
+              marginBottom: '1rem'
+            }}>
+              Made for how you actually live
+            </h2>
+            <p style={{ fontSize: '1.125rem', color: '#71717A', lineHeight: 1.6 }}>
+              Not another generic bank app. This one gets you.
             </p>
           </div>
-          <p className={styles.socialProofNote}>
-            {t('socialProof.note')}
-          </p>
+
+          {/* Minimalist Feature List */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0',
+            marginTop: '4rem',
+          }}>
+            {[
+              {
+                label: "01 / Language",
+                title: "Talk to your money.",
+                desc: "Type in Spanish, Tagalog, or Creole. Our AI understands you."
+              },
+              {
+                label: "02 / Family",
+                title: "One family. One budget.",
+                desc: "Collaborate on household expenses and financial goals together."
+              },
+              {
+                label: "03 / Future",
+                title: "Build wealth together.",
+                desc: "Set family goals for the house, the car, or the quinceañera."
+              }
+            ].map((item, i) => (
+              <div key={i} style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '2rem',
+                padding: '3rem 0',
+                borderBottom: '1px solid #E4E4E7',
+                alignItems: 'baseline'
+              }}>
+                <span style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  color: '#A1A1AA',
+                  letterSpacing: '0.05em'
+                }}>
+                  {item.label}
+                </span>
+
+                <h3 style={{
+                  fontFamily: 'serif',
+                  fontSize: '2rem',
+                  fontWeight: 500,
+                  margin: 0,
+                  color: '#18181B'
+                }}>
+                  {item.title}
+                </h3>
+
+                <p style={{
+                  fontSize: '1.125rem',
+                  color: '#52525B',
+                  margin: 0,
+                  maxWidth: '300px',
+                  lineHeight: 1.6
+                }}>
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className={styles.testimonials}>
-        <div className={styles.testimonialsHeader}>
-          <h2 className={styles.sectionTitle}>{t('testimonials.title')}</h2>
-          <p className={styles.sectionSubtitle}>
-            {t('testimonials.subtitle')}
+      {/* Final CTA Section */}
+      <section style={{
+        background: 'white',
+        padding: '10rem 2rem',
+        textAlign: 'center'
+      }}>
+        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
+          <h2 style={{
+            fontFamily: 'serif',
+            fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+            lineHeight: 1.1,
+            fontWeight: 500,
+            letterSpacing: '-0.02em',
+            marginBottom: '1.5rem'
+          }}>
+            Show your family there's a better way.
+          </h2>
+          <p style={{
+            fontSize: '1.25rem',
+            color: '#71717A',
+            marginBottom: '3rem',
+            lineHeight: 1.5
+          }}>
+            Free forever. No credit card. No tricks.
           </p>
-        </div>
-        <div className={styles.testimonialsWrapper}>
-          <Testimonials />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className={styles.cta}>
-        <div className={styles.ctaContent}>
-          <h2 className={styles.ctaTitle}>{t('ctaSection.title')}</h2>
-          <p className={styles.ctaSubtitle}>
-            {t('ctaSection.subtitle')}
-          </p>
-          <Link href="/signup" className={styles.ctaButton}>
-            {t('ctaSection.button')}
-            <ArrowRight size={18} />
-          </Link>
-          <p className={styles.ctaTrust}>
-            {t('ctaSection.trust')}
+          <button style={{
+            padding: '1.25rem 3rem',
+            background: '#18181B',
+            color: 'white',
+            border: 'none',
+            borderRadius: '100px',
+            fontSize: '1.125rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.15)',
+            marginBottom: '2.5rem'
+          }}>
+            Get Started — It's Free
+          </button>
+          <p style={{
+            color: '#A1A1AA',
+            fontSize: '0.875rem',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '2rem',
+            flexWrap: 'wrap'
+          }}>
+            <span>Works on any phone</span>
+            <span>18 languages</span>
+            <span>Secure</span>
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <div className={styles.footerLogo}>
-            <span>💎</span>
-            <span>Finova</span>
+      <footer style={{
+        padding: '3rem 2rem',
+        borderTop: '1px solid #F4F4F5',
+        background: 'white'
+      }}>
+        <div style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '1rem'
+        }}>
+          <div style={{
+            fontFamily: 'serif',
+            fontSize: '1.5rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em'
+          }}>
+
           </div>
-          <p className={styles.footerText}>
-            {t('footer.tagline')} 🌟
-          </p>
-          <p className={styles.footerCopyright}>
-            {t('footer.copyright')}
+          <p style={{
+            color: '#A1A1AA',
+            fontSize: '0.875rem'
+          }}>
+            Built by immigrants, for immigrants. © 2024
           </p>
         </div>
       </footer>
-
-      {/* AI Demo Chat Widget */}
-      <AiDemoChat />
     </div>
   )
 }
