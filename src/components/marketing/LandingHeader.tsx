@@ -27,6 +27,45 @@ export function LandingHeader({
         })
     }, [scrollY])
 
+    const baseLang = currentLang.split('-')[0] as 'en' | 'es' | 'ht' | 'pt'
+
+    const t = {
+        en: {
+            features: 'Features',
+            pricing: 'Pricing',
+            about: 'About',
+            login: 'Log in',
+            getStarted: 'Get Started'
+        },
+        es: {
+            features: 'Funciones',
+            pricing: 'Precios',
+            about: 'Nosotros',
+            login: 'Iniciar Sesión',
+            getStarted: 'Comenzar'
+        },
+        ht: {
+            features: 'Karakteristik',
+            pricing: 'Pri',
+            about: 'Enfomasyon',
+            login: 'Konekte',
+            getStarted: 'Kòmanse'
+        },
+        pt: {
+            features: 'Recursos',
+            pricing: 'Preços',
+            about: 'Sobre',
+            login: 'Entrar',
+            getStarted: 'Começar'
+        }
+    }[baseLang] || {
+        features: 'Features',
+        pricing: 'Pricing',
+        about: 'About',
+        login: 'Log in',
+        getStarted: 'Get Started'
+    }
+
     return (
         <motion.header style={{
             position: 'fixed',
@@ -61,16 +100,7 @@ export function LandingHeader({
                         fontStyle: 'italic'
                     }}>
                         Finova
-                        <span style={{
-                            display: 'inline-block',
-                            width: '0.5rem',
-                            height: '0.5rem',
-                            backgroundColor: '#FACC15',
-                            borderRadius: '50%',
-                            marginLeft: '0.25rem',
-                            marginBottom: '0.25rem',
-                            animation: 'pulse 2s infinite'
-                        }} />
+
                     </span>
                 </Link>
 
@@ -80,10 +110,14 @@ export function LandingHeader({
                     alignItems: 'center',
                     gap: '2.5rem'
                 }}>
-                    {['Features', 'Pricing', 'About'].map((item) => (
+                    {[
+                        { name: t.features, path: '/design-v1/features' },
+                        { name: t.pricing, path: '/design-v1/pricing' },
+                        { name: t.about, path: '/design-v1/about' }
+                    ].map((item) => (
                         <Link
-                            key={item}
-                            href={`#${item.toLowerCase()}`}
+                            key={item.path}
+                            href={item.path}
                             style={{
                                 fontSize: '0.875rem',
                                 fontWeight: 500,
@@ -92,7 +126,7 @@ export function LandingHeader({
                                 transition: 'color 0.2s'
                             }}
                         >
-                            {item}
+                            {item.name}
                         </Link>
                     ))}
                 </nav>
@@ -122,6 +156,9 @@ export function LandingHeader({
                                 }}
                             >
                                 <span style={{ fontSize: '1.25rem' }}>{languageNames[currentLang]?.flag}</span>
+                                <span style={{ fontSize: '0.875rem', fontWeight: 500, marginLeft: '0.25rem' }}>
+                                    {languageNames[currentLang]?.name}
+                                </span>
                                 <span style={{ fontSize: '0.625rem', color: '#A1A1AA' }}>▼</span>
                             </button>
 
@@ -136,13 +173,15 @@ export function LandingHeader({
                                             top: '100%',
                                             right: 0,
                                             marginTop: '0.5rem',
-                                            width: '11rem',
+                                            width: '18rem',
                                             background: 'white',
                                             borderRadius: '0.75rem',
                                             boxShadow: '0 10px 40px rgba(0,0,0,0.15)',
                                             border: '1px solid #F4F4F5',
                                             padding: '0.5rem 0',
-                                            zIndex: 50
+                                            zIndex: 50,
+                                            maxHeight: '60vh',
+                                            overflowY: 'auto',
                                         }}
                                     >
                                         {availableLanguages.map((langKey) => (
@@ -188,7 +227,7 @@ export function LandingHeader({
                             transition: 'color 0.2s'
                         }}
                     >
-                        Log in
+                        {t.login}
                     </Link>
 
                     {/* Get Started */}
@@ -206,7 +245,7 @@ export function LandingHeader({
                             boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
                         }}
                     >
-                        Get Started
+                        {t.getStarted}
                     </Link>
                 </div>
             </div>

@@ -1,124 +1,124 @@
 {
-  "brand": {
-    "name": "FINOVA",
-    "tagline": "Tu Estrella Financiera"
-  },
-  "nav": {
-    "dashboard": "Panel",
-    "transactions": "Transacciones",
-    "budgets": "Presupuestos",
-    "accounts": "Cuentas",
-    "goals": "Metas",
-    "login": "Iniciar sesión",
-    "getStarted": "Comenzar"
-  },
-  "landing": {
-    "badge": "Hecha para familias como la tuya",
-    "headline": "Tu plata. Tu idioma.",
-    "headlineGradient": "A tu manera.",
-    "subtitle": "La primera app de finanzas que habla español, tagalo, criollo y 15 idiomas más. Porque no deberías traducir tu cuenta de banco en tu cabeza.",
-    "cta": "Probala gratis — no necesitás inglés",
-    "ctaDemo": "Mirala en acción",
-    "stats": {
-      "languages": "Idiomas",
-      "free": "Gratis siempre",
-      "family": "Para tu familia"
+    "brand": {
+        "name": "FINOVA",
+        "tagline": "Tu Estrella Financiera"
     },
-    "features": {
-      "title": "Hecha para cómo vivís de verdad",
-      "subtitle": "No es otra app de banco genérica. Esta sí te entiende.",
-      "ai": {
-        "title": "\"Le mandé $200 a mamá\"",
-        "desc": "Solo escribilo. Nuestra IA te entiende—en cualquier idioma."
-      },
-      "home": {
-        "title": "Rastreá plata allá y acá",
-        "desc": "Mirá lo que mandaste a la familia y lo que te queda acá. Una sola app."
-      },
-      "goals": {
-        "title": "Metas que tu familia puede ver",
-        "desc": "Ahorrá para el viaje a casa. Compartí el progreso con los que importan."
-      },
-      "spending": {
-        "title": "Mirá a dónde se va la guita",
-        "desc": "Gráficos lindos. Sin sorpresas. Sin matemáticas."
-      },
-      "bills": {
-        "title": "Nunca te saltees un pago",
-        "desc": "Recibí alertas antes de que venza. Protegé el crédito que estás construyendo."
-      },
-      "security": {
-        "title": "Tus datos son tuyos",
-        "desc": "Seguridad de banco. No vendemos tu información. Punto."
-      }
+    "nav": {
+        "dashboard": "Panel",
+        "transactions": "Movimientos",
+        "budgets": "Presupuestos",
+        "accounts": "Cuentas",
+        "goals": "Metas",
+        "login": "Ingresá",
+        "getStarted": "Empezá"
     },
-    "socialProof": {
-      "quote": "María se la compartió a su mamá. Su mamá se la compartió a su comadre. Ahora 47 familias de su iglesia usan Finova.",
-      "note": "De confianza por recomendación, no por publicidad."
+    "landing": {
+        "badge": "Hecho para familias como la tuya",
+        "headline": "Manejá tu guita.",
+        "headlineGradient": "A tu manera.",
+        "subtitle": "La primera app de finanzas que habla tu idioma. Porque no da tener que traducir tu cuenta de banco.",
+        "cta": "Probala gratis — sin inglés",
+        "ctaDemo": "Miralo en acción",
+        "stats": {
+            "languages": "Idiomas",
+            "free": "Gratis siempre",
+            "family": "Para tu familia"
+        },
+        "features": {
+            "title": "Hecho para tu vida real",
+            "subtitle": "No es otro banco aburrido. Esto te entiende.",
+            "ai": {
+                "title": "\"Le mandé $200 a la vieja\"",
+                "desc": "Solo escribilo. Nuestra IA te entiende — en argentino."
+            },
+            "home": {
+                "title": "Seguí la plata acá y allá",
+                "desc": "Mirá lo que mandaste a casa y lo que queda acá. Todo junto."
+            },
+            "goals": {
+                "title": "Metas que tu familia ve",
+                "desc": "Juntá para el pasaje o la casa. Que todos vean el progreso."
+            },
+            "spending": {
+                "title": "Mirá dónde se va el sueldo",
+                "desc": "Gráficos claros. Sin sorpresas. Cero matemáticas."
+            },
+            "bills": {
+                "title": "Que no se te pase ni una",
+                "desc": "Recibí alertas antes de que venza. Cuidá tu historial."
+            },
+            "security": {
+                "title": "Tus datos son tuyos",
+                "desc": "Seguridad bancaria. No vendemos tu info. Posta."
+            }
+        },
+        "socialProof": {
+            "quote": "María se lo pasó a su mamá. Su mamá a la vecina. Ahora medio barrio usa Finova.",
+            "note": "La gente confía por recomendación."
+        },
+        "testimonials": {
+            "title": "Familias reales. Lenguaje real.",
+            "subtitle": "Mirá lo que dice la gente — posta."
+        },
+        "ctaSection": {
+            "title": "Mostrale a tu familia una mejor forma.",
+            "subtitle": "Gratis para siempre. Sin tarjeta. Sin vueltas.",
+            "button": "Arrancá — Es Gratis",
+            "trust": "Funciona en cualquier celu • 18 idiomas • Seguro"
+        },
+        "footer": {
+            "tagline": "Hecho por inmigrantes, para inmigrantes.",
+            "copyright": "© 2024 Finova. Todos los derechos reservados."
+        }
     },
-    "testimonials": {
-      "title": "Familias reales. Idiomas reales.",
-      "subtitle": "Mirá lo que dice la gente—en sus propias palabras."
+    "dashboard": {
+        "welcome": "¡Buenas!",
+        "subtitle": "Acá están tus números",
+        "totalBalance": "Balance Total",
+        "monthlyIncome": "Ingresos del Mes",
+        "monthlyExpenses": "Gastos del Mes",
+        "savingsRate": "Ahorro",
+        "recentTransactions": "Últimos Movimientos",
+        "quickActions": "Acciones Rápidas",
+        "budgetOverview": "Resumen de Gastos"
     },
-    "ctaSection": {
-      "title": "Mostrale a tu familia que hay una mejor manera.",
-      "subtitle": "Gratis siempre. Sin tarjeta de crédito. Sin trucos.",
-      "button": "Empezar — Es Gratis",
-      "trust": "Funciona en cualquier teléfono • Disponible en 18 idiomas • Seguro"
+    "transactions": {
+        "title": "Movimientos",
+        "subtitle": "Seguí todos tus gastos",
+        "addTransaction": "Nuevo Movimiento",
+        "searchPlaceholder": "Buscá algo...",
+        "allCategories": "Todas las Categorías",
+        "allAccounts": "Todas las Cuentas",
+        "income": "Ingreso",
+        "expense": "Gasto",
+        "transfer": "Transferencia"
     },
-    "footer": {
-      "tagline": "Hecha por inmigrantes, para inmigrantes.",
-      "copyright": "© 2024 Finova. Todos los derechos reservados."
+    "budgets": {
+        "title": "Presupuestos",
+        "subtitle": "Controlá tus gastos",
+        "createBudget": "Nuevo Presupuesto",
+        "monthlyBudget": "Presupuesto Mensual",
+        "spent": "Gastado",
+        "remaining": "Queda",
+        "overBudget": "Te pasaste"
+    },
+    "accounts": {
+        "title": "Cuentas",
+        "subtitle": "Manejá tu plata",
+        "addAccount": "Agregar Cuenta",
+        "totalNetWorth": "Patrimonio Total",
+        "currentBalance": "Balance Actual",
+        "viewDetails": "Ver Detalles",
+        "edit": "Editar"
+    },
+    "common": {
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "delete": "Borrar",
+        "edit": "Editar",
+        "close": "Cerrar",
+        "loading": "Cargando...",
+        "error": "Error",
+        "success": "Joya"
     }
-  },
-  "dashboard": {
-    "welcome": "¡Bienvenido de nuevo!",
-    "subtitle": "Acá está tu resumen financiero",
-    "totalBalance": "Saldo Total",
-    "monthlyIncome": "Ingresos Mensuales",
-    "monthlyExpenses": "Gastos Mensuales",
-    "savingsRate": "Tasa de Ahorro",
-    "recentTransactions": "Transacciones Recientes",
-    "quickActions": "Acciones Rápidas",
-    "budgetOverview": "Resumen de Presupuesto"
-  },
-  "transactions": {
-    "title": "Transacciones",
-    "subtitle": "Rastreá y administrá todas tus transacciones",
-    "addTransaction": "Agregar Transacción",
-    "searchPlaceholder": "Buscar transacciones...",
-    "allCategories": "Todas las Categorías",
-    "allAccounts": "Todas las Cuentas",
-    "income": "Ingreso",
-    "expense": "Gasto",
-    "transfer": "Transferencia"
-  },
-  "budgets": {
-    "title": "Presupuestos",
-    "subtitle": "Controlá tus gastos contra tu presupuesto",
-    "createBudget": "Crear Presupuesto",
-    "monthlyBudget": "Presupuesto Mensual",
-    "spent": "Gastado",
-    "remaining": "Restante",
-    "overBudget": "Sobre Presupuesto"
-  },
-  "accounts": {
-    "title": "Cuentas",
-    "subtitle": "Administrá tus cuentas financieras",
-    "addAccount": "Agregar Cuenta",
-    "totalNetWorth": "Patrimonio Total",
-    "currentBalance": "Saldo Actual",
-    "viewDetails": "Ver Detalles",
-    "edit": "Editar"
-  },
-  "common": {
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "delete": "Eliminar",
-    "edit": "Editar",
-    "close": "Cerrar",
-    "loading": "Cargando...",
-    "error": "Error",
-    "success": "Éxito"
-  }
 }

@@ -9,84 +9,84 @@
         "budgets": "Presupuestos",
         "accounts": "Cuentas",
         "goals": "Metas",
-        "login": "Iniciar sesión",
-        "getStarted": "Comenzar"
+        "login": "Ingresar",
+        "getStarted": "Empezar"
     },
     "landing": {
-        "badge": "Hecha para familias como la tuya",
-        "headline": "Tu dinero. Tu idioma.",
+        "badge": "Hecho para familias como la tuya",
+        "headline": "Maneja tu plata.",
         "headlineGradient": "A tu manera.",
-        "subtitle": "La primera app de finanzas que habla español, tagalo, criollo y 15 idiomas más. Porque no deberías traducir tu cuenta de banco en tu cabeza.",
-        "cta": "Pruébala gratis — no necesitas inglés",
-        "ctaDemo": "Mírala en acción",
+        "subtitle": "La primera app de finanzas que habla tu idioma. Porque no deberías estresarte traduciendo tu cuenta de banco.",
+        "cta": "Pruébala gratis — sin inglés",
+        "ctaDemo": "Míralo en acción",
         "stats": {
             "languages": "Idiomas",
             "free": "Gratis siempre",
             "family": "Para tu familia"
         },
         "features": {
-            "title": "Hecha para cómo vives de verdad",
-            "subtitle": "No es otra app de banco genérica. Esta sí te entiende.",
+            "title": "Hecho para tu vida real",
+            "subtitle": "No es otro banco aburrido. Esto sí te entiende.",
             "ai": {
-                "title": "\"Le mandé $200 a mamá\"",
-                "desc": "Solo escríbelo. Nuestra IA te entiende—en cualquier idioma."
+                "title": "\"Le mandé $200 a la cucha\"",
+                "desc": "Solo escríbelo. Nuestra IA te entiende — en colombiano."
             },
             "home": {
-                "title": "Rastrea dinero allá y acá",
-                "desc": "Ve lo que mandaste a la familia y lo que te queda aquí. Una sola app."
+                "title": "Rastrea la plata aquí y allá",
+                "desc": "Mira lo que mandaste a la tierrita y lo que queda aquí. Todo en uno."
             },
             "goals": {
-                "title": "Metas que tu familia puede ver",
-                "desc": "Ahorra para el viaje a casa. Comparte el progreso con los que importan."
+                "title": "Metas que tu familia ve",
+                "desc": "Ahorra pa'l pasaje o la casita. Que todos vean el progreso."
             },
             "spending": {
-                "title": "Ve a dónde se va la quincena",
-                "desc": "Gráficas bonitas. Sin sorpresas. Sin matemáticas."
+                "title": "Mira dónde se va el billete",
+                "desc": "Gráficos claros. Sin sorpresas. Cero matemáticas."
             },
             "bills": {
-                "title": "Nunca te saltes un pago",
-                "desc": "Recibe alertas antes de que venza. Protege el crédito que estás construyendo."
+                "title": "Que no se te pase ni una",
+                "desc": "Recibe alertas antes de que venza. Cuida tu vida crediticia."
             },
             "security": {
                 "title": "Tus datos son tuyos",
-                "desc": "Seguridad de banco. No vendemos tu información. Punto."
+                "desc": "Seguridad nivel banco. No vendemos tu info. Punto."
             }
         },
         "socialProof": {
-            "quote": "María se la compartió a su mamá. Su mamá se la compartió a su comadre. Ahora 47 familias de su iglesia usan Finova.",
-            "note": "De confianza por recomendación, no por anuncios."
+            "quote": "María se lo pasó a su mamá. Su mamá a la vecina. Ahora medio barrio usa Finova.",
+            "note": "La gente confía por el voz a voz."
         },
         "testimonials": {
-            "title": "Familias reales. Idiomas reales.",
-            "subtitle": "Mira lo que dice la gente—en sus propias palabras."
+            "title": "Familias reales. Lenguaje real.",
+            "subtitle": "Mira lo que dice la gente — sin carreta."
         },
         "ctaSection": {
-            "title": "Muéstrale a tu familia que hay una mejor manera.",
-            "subtitle": "Gratis siempre. Sin tarjeta de crédito. Sin trucos.",
-            "button": "Empezar — Es Gratis",
-            "trust": "Funciona en cualquier teléfono • Disponible en 18 idiomas • Seguro"
+            "title": "Muéstrale a tu familia una mejor forma.",
+            "subtitle": "Gratis pa' siempre. Sin tarjeta. Sin enredos.",
+            "button": "De Una — Es Gratis",
+            "trust": "Funciona en cualquier cel • 18 idiomas • Seguro"
         },
         "footer": {
-            "tagline": "Hecha por inmigrantes, para inmigrantes.",
+            "tagline": "Hecho por inmigrantes, para inmigrantes.",
             "copyright": "© 2024 Finova. Todos los derechos reservados."
         }
     },
     "dashboard": {
-        "welcome": "¡Bienvenido de nuevo!",
-        "subtitle": "Aquí está tu resumen financiero",
+        "welcome": "¡Quiubo!",
+        "subtitle": "Aquí están tus números",
         "totalBalance": "Saldo Total",
-        "monthlyIncome": "Ingresos Mensuales",
-        "monthlyExpenses": "Gastos Mensuales",
-        "savingsRate": "Tasa de Ahorro",
-        "recentTransactions": "Transacciones Recientes",
+        "monthlyIncome": "Ingresos del Mes",
+        "monthlyExpenses": "Gastos del Mes",
+        "savingsRate": "Ahorro",
+        "recentTransactions": "Movimientos Recientes",
         "quickActions": "Acciones Rápidas",
-        "budgetOverview": "Resumen de Presupuesto"
+        "budgetOverview": "Resumen de Gastos"
     },
     "transactions": {
         "title": "Transacciones",
-        "subtitle": "Rastrea y administra todas tus transacciones",
-        "addTransaction": "Agregar Transacción",
-        "searchPlaceholder": "Buscar transacciones...",
+        "subtitle": "Sigue todos tus movimientos",
+        "addTransaction": "Nueva Transacción",
+        "searchPlaceholder": "Busca algo...",
         "allCategories": "Todas las Categorías",
         "allAccounts": "Todas las Cuentas",
         "income": "Ingreso",
@@ -95,16 +95,16 @@
     },
     "budgets": {
         "title": "Presupuestos",
-        "subtitle": "Controla tus gastos contra tu presupuesto",
-        "createBudget": "Crear Presupuesto",
+        "subtitle": "Lleva el control de lo que gastas",
+        "createBudget": "Nuevo Presupuesto",
         "monthlyBudget": "Presupuesto Mensual",
         "spent": "Gastado",
-        "remaining": "Restante",
-        "overBudget": "Sobre Presupuesto"
+        "remaining": "Queda",
+        "overBudget": "Te pasaste"
     },
     "accounts": {
         "title": "Cuentas",
-        "subtitle": "Administra tus cuentas financieras",
+        "subtitle": "Maneja tu plata",
         "addAccount": "Agregar Cuenta",
         "totalNetWorth": "Patrimonio Total",
         "currentBalance": "Saldo Actual",
@@ -114,11 +114,11 @@
     "common": {
         "save": "Guardar",
         "cancel": "Cancelar",
-        "delete": "Eliminar",
+        "delete": "Borrar",
         "edit": "Editar",
         "close": "Cerrar",
         "loading": "Cargando...",
         "error": "Error",
-        "success": "Éxito"
+        "success": "Listo"
     }
 }

@@ -73,8 +73,8 @@ export default function Home() {
               marginBottom: '2rem'
             }}
           >
-            The first finance app that speaks Spanish, Tagalog, Creole, and 15+ more languages.
-            Because you shouldn't have to translate your bank account.
+            The first finance app that speaks Spanish, Portuguese, Creole, and 20+ more languages.
+            Because you shouldn't have to translate your finances.
           </p>
 
           {/* CTA Buttons */}
@@ -109,14 +109,15 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </section >
 
       {/* Features Section */}
-      <section style={{
+      < section style={{
         background: 'white',
         padding: '6rem 2rem',
         borderRadius: '3rem 3rem 0 0'
-      }}>
+      }
+      }>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           {/* Section Header */}
           <div style={{ marginBottom: '4rem', maxWidth: '600px' }}>
@@ -156,7 +157,7 @@ export default function Home() {
               {
                 label: "01 / Language",
                 title: "Talk to your money.",
-                desc: "Type in Spanish, Tagalog, or Creole. Our AI understands you."
+                desc: "Type in Spanish, Portuguese, or Creole. Our AI understands you."
               },
               {
                 label: "02 / Family",
@@ -210,10 +211,10 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </section >
 
       {/* Final CTA Section */}
-      <section style={{
+      < section style={{
         background: 'white',
         padding: '10rem 2rem',
         textAlign: 'center'
@@ -264,10 +265,10 @@ export default function Home() {
             <span>Secure</span>
           </p>
         </div>
-      </section>
+      </section >
 
       {/* Footer */}
-      <footer style={{
+      < footer style={{
         padding: '3rem 2rem',
         borderTop: '1px solid #F4F4F5',
         background: 'white'
@@ -296,7 +297,7 @@ export default function Home() {
             Built by immigrants, for immigrants. © 2024
           </p>
         </div>
-      </footer>
-    </div>
+      </footer >
+    </div >
   )
 }

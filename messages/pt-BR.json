@@ -1,0 +1,124 @@
+{
+    "brand": {
+        "name": "FINOVA",
+        "tagline": "Sua Estrela Financeira"
+    },
+    "nav": {
+        "dashboard": "Painel",
+        "transactions": "Transações",
+        "budgets": "Orçamentos",
+        "accounts": "Contas",
+        "goals": "Metas",
+        "login": "Entrar",
+        "getStarted": "Começar"
+    },
+    "landing": {
+        "badge": "Feito para famílias como a sua",
+        "headline": "Seu dinheiro. Seu idioma.",
+        "headlineGradient": "Do seu jeito.",
+        "subtitle": "O primeiro app financeiro que fala espanhol, tagalo, crioulo e mais 15 idiomas. Porque você não deveria ter que traduzir sua conta bancária na cabeça.",
+        "cta": "Experimente grátis — sem precisar de inglês",
+        "ctaDemo": "Veja em ação",
+        "stats": {
+            "languages": "Idiomas",
+            "free": "Grátis para sempre",
+            "family": "Para sua família"
+        },
+        "features": {
+            "title": "Feito para como você vive de verdade",
+            "subtitle": "Não é mais um app de banco genérico. Esse aqui te entende.",
+            "ai": {
+                "title": "\"Enviei $200 pra mãe\"",
+                "desc": "É só digitar. Nossa IA te entende — em qualquer idioma."
+            },
+            "home": {
+                "title": "Acompanhe o dinheiro aqui e lá",
+                "desc": "Veja o que você enviou para a família no exterior e o que fica aqui. Um só app."
+            },
+            "goals": {
+                "title": "Metas que sua família pode ver",
+                "desc": "Economize para a viagem de volta. Compartilhe o progresso com quem importa."
+            },
+            "spending": {
+                "title": "Veja para onde vai o salário",
+                "desc": "Gráficos bonitos. Sem surpresas. Sem matemática."
+            },
+            "bills": {
+                "title": "Nunca perca uma conta",
+                "desc": "Receba alertas antes do vencimento. Proteja o crédito que você está construindo."
+            },
+            "security": {
+                "title": "Seus dados continuam seus",
+                "desc": "Segurança de nível bancário. Não vendemos suas informações. Ponto."
+            }
+        },
+        "socialProof": {
+            "quote": "Maria compartilhou com a mãe. A mãe dela compartilhou com a comadre. Agora 47 famílias na igreja usam o Finova.",
+            "note": "Confiado pelo boca a boca, não por anúncios."
+        },
+        "testimonials": {
+            "title": "Famílias reais. Idiomas reais.",
+            "subtitle": "Veja o que as pessoas estão dizendo — nas palavras delas."
+        },
+        "ctaSection": {
+            "title": "Mostre para sua família que existe um jeito melhor.",
+            "subtitle": "Grátis para sempre. Sem cartão. Sem pegadinhas.",
+            "button": "Começar — É Grátis",
+            "trust": "Funciona em qualquer celular • Disponível em 18 idiomas • Seguro"
+        },
+        "footer": {
+            "tagline": "Feito por imigrantes, para imigrantes.",
+            "copyright": "© 2024 Finova. Todos os direitos reservados."
+        }
+    },
+    "dashboard": {
+        "welcome": "Bem-vindo de volta!",
+        "subtitle": "Aqui está seu resumo financeiro",
+        "totalBalance": "Saldo Total",
+        "monthlyIncome": "Renda Mensal",
+        "monthlyExpenses": "Despesas Mensais",
+        "savingsRate": "Taxa de Poupança",
+        "recentTransactions": "Transações Recentes",
+        "quickActions": "Ações Rápidas",
+        "budgetOverview": "Visão Geral do Orçamento"
+    },
+    "transactions": {
+        "title": "Transações",
+        "subtitle": "Acompanhe e gerencie todas as suas transações",
+        "addTransaction": "Adicionar Transação",
+        "searchPlaceholder": "Buscar transações...",
+        "allCategories": "Todas Categorias",
+        "allAccounts": "Todas Contas",
+        "income": "Receita",
+        "expense": "Despesa",
+        "transfer": "Transferência"
+    },
+    "budgets": {
+        "title": "Orçamentos",
+        "subtitle": "Acompanhe seus gastos em relação aos orçamentos",
+        "createBudget": "Criar Orçamento",
+        "monthlyBudget": "Orçamento Mensal",
+        "spent": "Gasto",
+        "remaining": "Restante",
+        "overBudget": "Estourou"
+    },
+    "accounts": {
+        "title": "Contas",
+        "subtitle": "Gerencie suas contas financeiras",
+        "addAccount": "Adicionar Conta",
+        "totalNetWorth": "Patrimônio Líquido Total",
+        "currentBalance": "Saldo Atual",
+        "viewDetails": "Ver Detalhes",
+        "edit": "Editar"
+    },
+    "common": {
+        "save": "Salvar",
+        "cancel": "Cancelar",
+        "delete": "Excluir",
+        "edit": "Editar",
+        "close": "Fechar",
+        "loading": "Carregando...",
+        "error": "Erro",
+        "success": "Sucesso"
+    }
+}

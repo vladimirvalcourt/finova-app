@@ -7,11 +7,14 @@ export const locales = [
     'es-BO',
     'es-CL',
     'es-CO',
+    'es-CR',
     'es-CU',
     'es-DO',
     'es-EC',
     'es-GT',
     'es-HN',
+    'es-NI',
+    'es-PA',
     'es-PE',
     'es-PR',
     'es-PY',
@@ -19,6 +22,7 @@ export const locales = [
     'es-UY',
     'es-VE',
     'ht-HT',
+    'pt-BR',
 ] as const
 
 export type Locale = (typeof locales)[number]
@@ -30,11 +34,14 @@ export const localeNames: Record<Locale, string> = {
     'es-BO': 'Español (Bolivia)',
     'es-CL': 'Español (Chile)',
     'es-CO': 'Español (Colombia)',
+    'es-CR': 'Español (Costa Rica)',
     'es-CU': 'Español (Cuba)',
-    'es-DO': 'Español (Dominicana)',
+    'es-DO': 'Español (Rep. Dominicana)',
     'es-EC': 'Español (Ecuador)',
     'es-GT': 'Español (Guatemala)',
     'es-HN': 'Español (Honduras)',
+    'es-NI': 'Español (Nicaragua)',
+    'es-PA': 'Español (Panamá)',
     'es-PE': 'Español (Perú)',
     'es-PR': 'Español (Puerto Rico)',
     'es-PY': 'Español (Paraguay)',
@@ -42,6 +49,7 @@ export const localeNames: Record<Locale, string> = {
     'es-UY': 'Español (Uruguay)',
     'es-VE': 'Español (Venezuela)',
     'ht-HT': 'Kreyòl Ayisyen',
+    'pt-BR': 'Português (Brasil)',
 }
 
 export const localeFlags: Record<Locale, string> = {
@@ -51,11 +59,14 @@ export const localeFlags: Record<Locale, string> = {
     'es-BO': '🇧🇴',
     'es-CL': '🇨🇱',
     'es-CO': '🇨🇴',
+    'es-CR': '🇨🇷',
     'es-CU': '🇨🇺',
     'es-DO': '🇩🇴',
     'es-EC': '🇪🇨',
     'es-GT': '🇬🇹',
     'es-HN': '🇭🇳',
+    'es-NI': '🇳🇮',
+    'es-PA': '🇵🇦',
     'es-PE': '🇵🇪',
     'es-PR': '🇵🇷',
     'es-PY': '🇵🇾',
@@ -63,6 +74,7 @@ export const localeFlags: Record<Locale, string> = {
     'es-UY': '🇺🇾',
     'es-VE': '🇻🇪',
     'ht-HT': '🇭🇹',
+    'pt-BR': '🇧🇷',
 }
 
 export default getRequestConfig(async ({ locale }) => ({
