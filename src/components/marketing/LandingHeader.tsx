@@ -33,37 +33,27 @@ export function LandingHeader({
         en: {
             features: 'Features',
             pricing: 'Pricing',
-            about: 'About',
-            login: 'Log in',
-            getStarted: 'Get Started'
+            about: 'About'
         },
         es: {
             features: 'Funciones',
             pricing: 'Precios',
-            about: 'Nosotros',
-            login: 'Iniciar Sesión',
-            getStarted: 'Comenzar'
+            about: 'Nosotros'
         },
         ht: {
             features: 'Karakteristik',
             pricing: 'Pri',
-            about: 'Enfomasyon',
-            login: 'Konekte',
-            getStarted: 'Kòmanse'
+            about: 'Enfomasyon'
         },
         pt: {
             features: 'Recursos',
             pricing: 'Preços',
-            about: 'Sobre',
-            login: 'Entrar',
-            getStarted: 'Começar'
+            about: 'Sobre'
         }
     }[baseLang] || {
         features: 'Features',
         pricing: 'Pricing',
-        about: 'About',
-        login: 'Log in',
-        getStarted: 'Get Started'
+        about: 'About'
     }
 
     return (
@@ -215,38 +205,6 @@ export function LandingHeader({
                             </AnimatePresence>
                         </div>
                     )}
-
-                    {/* Log in */}
-                    <Link
-                        href="/login"
-                        style={{
-                            fontSize: '0.875rem',
-                            fontWeight: 500,
-                            color: '#3F3F46',
-                            textDecoration: 'none',
-                            transition: 'color 0.2s'
-                        }}
-                    >
-                        {t.login}
-                    </Link>
-
-                    {/* Get Started */}
-                    <Link
-                        href="/signup"
-                        style={{
-                            padding: '0.625rem 1.25rem',
-                            backgroundColor: '#18181B',
-                            color: 'white',
-                            fontSize: '0.875rem',
-                            fontWeight: 600,
-                            borderRadius: '9999px',
-                            textDecoration: 'none',
-                            transition: 'background 0.2s, transform 0.2s',
-                            boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-                        }}
-                    >
-                        {t.getStarted}
-                    </Link>
                 </div>
             </div>
         </motion.header>

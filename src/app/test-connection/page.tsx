@@ -85,9 +85,7 @@ export default function TestConnectionPage() {
                             🎉 Next Steps:
                         </h3>
                         <ol style={{ listStyle: 'decimal', paddingLeft: '2rem' }}>
-                            <li>Create a test user at /auth-example</li>
-                            <li>Start adding real data to the app</li>
-                            <li>Build authentication pages</li>
+                            <li>Add your data to the app</li>
                             <li>Add charts and visualizations</li>
                         </ol>
                     </div>
