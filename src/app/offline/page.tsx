@@ -30,7 +30,7 @@ export default function OfflinePage() {
                 It looks like you've lost your internet connection. Finova works best when you're online, but you can still view your cached pages.
             </p>
             <Link
-                href="/dashboard"
+                href="/"
                 className="rounded-lg bg-primary-600 px-6 py-3 font-medium text-white transition-colors hover:bg-primary-700 active:bg-primary-800"
             >
                 Try Again

@@ -86,7 +86,7 @@ export default function TestConnectionPage() {
                         </h3>
                         <ol style={{ listStyle: 'decimal', paddingLeft: '2rem' }}>
                             <li>Create a test user at /auth-example</li>
-                            <li>Start adding real data to the dashboard</li>
+                            <li>Start adding real data to the app</li>
                             <li>Build authentication pages</li>
                             <li>Add charts and visualizations</li>
                         </ol>
@@ -112,7 +112,7 @@ export default function TestConnectionPage() {
                         <ul style={{ listStyle: 'disc', paddingLeft: '2rem' }}>
                             <li>Check your .env.local file has correct credentials</li>
                             <li>Verify you ran all 3 SQL migration files</li>
-                            <li>Check Supabase dashboard for errors</li>
+                            <li>Check Supabase console for errors</li>
                             <li>Restart your dev server (npm run dev)</li>
                         </ul>
                     </div>

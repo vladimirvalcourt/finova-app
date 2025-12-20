@@ -44,8 +44,8 @@ export default function AuthExample() {
             setMessage(`Error: ${error.message}`)
         } else {
             setMessage('Signed in successfully!')
-            // Redirect to dashboard
-            window.location.href = '/dashboard'
+            // Redirect to home
+            window.location.href = '/'
         }
         setLoading(false)
     }
@@ -54,7 +54,7 @@ export default function AuthExample() {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                redirectTo: `${window.location.origin}/dashboard`,
+                redirectTo: `${window.location.origin}/`,
             },
         })
 

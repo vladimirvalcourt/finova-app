@@ -8,7 +8,7 @@ import { PremiumCard } from "@/components/ui/PremiumCard";
 export function HeroVisuals() {
     return (
         <div className={styles.container}>
-            {/* Main Dashboard Card (Center/Back) */}
+            {/* Main Card (Center/Back) */}
             <motion.div
                 className={styles.mainCardWrapper}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}

@@ -8,7 +8,7 @@ export function HeroVisual() {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-indigo-500/20 rounded-full blur-[100px] animate-pulse" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-rose-500/20 rounded-full blur-[80px] translate-x-20 -translate-y-20" />
 
-            {/* Main Floating Dashboard Card */}
+            {/* Main Floating Balance Card */}
             <motion.div
                 initial={{ opacity: 0, y: 20, rotateX: 10 }}
                 animate={{ opacity: 1, y: 0, rotateX: 0 }}

@@ -17,7 +17,7 @@ export default function FeaturesPage() {
             feature1Tag: "SMART BUDGETING",
             feature1Title: "See where every dollar goes.",
             feature1Desc: "Most budgeting apps ignore how immigrant families actually spend. We categorize remittances, multi-currency transactions, and family support—automatically.",
-            feature1List: ['Track remittances you send', 'Multi-currency dashboard', 'Family spending insights'],
+            feature1List: ['Track remittances you send', 'Multi-currency support', 'Family spending insights'],
             feature2Tag: "LANGUAGE",
             feature2Title: "Financial clarity in your mother tongue.",
             feature2Desc: "Money is hard enough without a language barrier. Finova translates every term, alert, and chart into 20+ regional dialects automatically.",
